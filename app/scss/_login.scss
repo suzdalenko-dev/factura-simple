@@ -2,19 +2,19 @@
 // Toshi the dog from https://unsplash.com/@charlesdeluvio - what a funny dog...
 
 .bg-login-image {
-  background: url($login-image);
+  background: url("/assets/img/login-img.png");
   background-position: center;
   background-size: cover;
 }
 
 .bg-register-image {
-  background: url($register-image);
+  background: url("/assets/img/loginimage.jpg");
   background-position: center;
   background-size: cover;
 }
 
 .bg-password-image {
-  background: url($password-image);
+  background: url("/assets/img/forgot.jpg");
   background-position: center;
   background-size: cover;
 }
