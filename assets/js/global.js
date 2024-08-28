@@ -4,6 +4,7 @@ if(currentUrl.includes('127.0.0.1')){
     HTTP_URL = 'http://127.0.0.1:8000/';
 }
 
+/* register and login */
 async function registerRequest(url, formData){
     try {
         let uri = HTTP_URL+url;
@@ -19,11 +20,15 @@ async function registerRequest(url, formData){
     }
 }
 
+/* other queries */
 async function postRequest(url, formData){
     try {
-        formData.append('id', window.localStorage.getItem('id'));
+        formData.append('company_id', window.localStorage.getItem('company_id'));
+        formData.append('email', window.localStorage.getItem('email'));
+        formData.append('cif', window.localStorage.getItem('cif'));
         formData.append('uid', window.localStorage.getItem('uid'));
-
+        formData.append('password', window.localStorage.getItem('password'));
+        
         let uri = HTTP_URL+url;
         let response = await fetch(uri, {method:'POST', body: formData});
         let data = await response.json();
@@ -37,6 +42,7 @@ async function postRequest(url, formData){
     }
 }
 
-async function getRequest(url) {
-    
-}
+
+
+
+console.log(localStorage)
