@@ -18,6 +18,7 @@
     <link rel="icon" href="/assets/img/favicon.png" sizes="32x32">
     <link rel="shortcut icon" href="/favicon.ico" type="image/vnd.microsoft.icon">
     <script src="/assets/js/global.js"></script>
+    <script src="/assets/js/entity.js"></script>
     <script src="https://kit.fontawesome.com/778b634ff9.js" crossorigin="anonymous"></script>
 </head>
 
@@ -30,10 +31,9 @@
             </a>
             <hr class="sidebar-divider my-0">
             <li class="nav-item active">
-                <a class="nav-link" href="#"><i class="fas fa-file-invoice"></i> <span>Facturas</span></a>
-                <a class="nav-link" href="#"><i class="fa-solid fa-users"></i> <span>Clientes</span></a>
-                <a class="nav-link" href="#"><i class="fa-sharp-duotone fa-solid fa-car-battery"></i></i>
-                    <span>Artículos</span></a>
+                <a class="nav-link" href="#" id="facturaClick"><i class="fas fa-file-invoice"></i> <span>Factura</span></a>
+                <a class="nav-link" href="#" id="clienteClick"><i class="fa-solid fa-users"></i> <span>Cliente</span></a>
+                <a class="nav-link" href="#" id="articuloClick"><i class="fa-sharp-duotone fa-solid fa-car-battery"></i></i><span>Artículo</span></a>
             </li>
             <hr class="sidebar-divider">
             <div class="sidebar-heading">
@@ -100,32 +100,13 @@
                 </nav>
 
                 <div class="container-fluid">
-                    <h1 class="h3 mb-2 text-gray-800">Facturas</h1>
+                    <h1 class="h3 mb-2 text-gray-800" id="paginaTitulo">Cargando..</h1>
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Listado</h6>
+                            <h6 class="m-0 font-weight-bold text-primary" id="tablaTitulo">Listado</h6>
                         </div>
                         <div class="card-body">
-                            <div id="" class="">
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-6">
-                                        <div class="" id="">
-                                            <label>Mostrar
-                                                <select class="custom-select custom-select-sm form-control form-control-sm">
-                                                    <option value="10">10</option>
-                                                    <option value="25">25</option>
-                                                    <option value="50">50</option>
-                                                    <option value="100">100</option>
-                                                </select>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6">
-                                        <div>
-                                            <label>Buscar: <input type="search" class="form-control form-control-sm"></label>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="table-responsive">
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <table class="table table-bordered">
@@ -150,30 +131,6 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-5">
-                                        <div class="dataTables_info" id="dataTable_info" role="status"
-                                            aria-live="polite">Showing 1 to 10 of 57 entries</div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-7">
-                                        <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-                                            <ul class="pagination">
-                                                <li class="paginate_button page-item previous disabled" id="dataTable_previous">
-                                                    <a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Anterior</a>
-                                                </li>
-                                                <li class="paginate_button page-item active">
-                                                    <a href="#"aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link">1</a>
-                                                </li>
-                                                <li class="paginate_button page-item ">
-                                                    <a href="#" aria-controls="dataTable" data-dt-idx="2" tabindex="0" class="page-link">2</a>
-                                                </li>
-                                                <li class="paginate_button page-item next" id="dataTable_next">
-                                                    <a href="#" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">Siguiente</a>
-                                                </li>
-                                            </ul>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
