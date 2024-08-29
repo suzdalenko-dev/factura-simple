@@ -2,17 +2,14 @@ let DEFAULT_ACTION = 'get';
 let DEFAULT_ENTITY = {name:'factura', title:'Facturas'};
 
 let paginaTitulo = document.getElementById('paginaTitulo');
-let tablaTitulo  = document.getElementById('tablaTitulo');
 
 function defaultController(action, entidad, id){
     paginaTitulo.innerText = entidad.title;
-    tablaTitulo.innerText  = 'Cargando..'; 
     let url = 'default/'+action+'/'+entidad.name+'/'+id;
     let formData = new FormData();
     
     postRequest(url, formData).then(data => {
         if(data && data.res){
-            tablaTitulo.innerText = entidad.title+' '+data.res.length ;
             crearTablaEntidadPrincipal(data.res, entidad)
         } else {
             console.log('Error al traer datos '+ entity);
@@ -42,5 +39,5 @@ document.getElementById('articuloClick').addEventListener('click', () => {
 });
 
 function crearTablaEntidadPrincipal(listData, entityData){
-    
+
 }
