@@ -13,6 +13,7 @@
     <link href="/assets/css/sb-admin-2.min.css" rel="stylesheet">
     <link rel="icon" href="/assets/img/favicon.png" sizes="32x32">
     <link rel="shortcut icon" href="/favicon.ico" type="image/vnd.microsoft.icon">
+    <script src="/assets/js/global.js"></script>
 </head>
 
 <body class="bg-gradient-primary">
@@ -30,10 +31,13 @@
                                     </div>
                                     <form class="user">
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                                            <input type="text" class="form-control form-control-user" id="cifLogin" placeholder="CIF">
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
+                                            <input type="email" class="form-control form-control-user" id="emailLogin" placeholder="Correo electrónico">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control form-control-user" id="passwordLogin" placeholder="Contraseña">
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
@@ -41,7 +45,7 @@
                                                 <label class="custom-control-label" for="customCheck">Recuérdame</label>
                                             </div>
                                         </div>
-                                        <a href="#" class="btn btn-primary btn-user btn-block">Login</a>
+                                        <a href="#" class="btn btn-primary btn-user btn-block" id="btnLogin">Iniciar sesión</a>
                                     </form>
                                     <hr>
                                     <div class="text-center">
@@ -50,14 +54,56 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="text-center">
+                            <a class="small" target="_blank" href="https://www.google.com/search?q=suzdalenko">Alexey Suzdalenko</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-    <script src="js/sb-admin-2.min.js"></script>
+    <script>
+        if(window.localStorage.getItem('cif') && window.localStorage.getItem('email') && window.localStorage.getItem('password')){
+            document.getElementById('cifLogin').value = window.localStorage.getItem('cif');
+            document.getElementById('emailLogin').value = window.localStorage.getItem('email');
+            document.getElementById('passwordLogin').value = window.localStorage.getItem('password');
+        }
+        let btnLogin = document.getElementById('btnLogin');
+        btnLogin.addEventListener('click', () => {
+            let cifLogin = document.getElementById('cifLogin').value.trim();
+            let emailLogin = document.getElementById('emailLogin').value.trim();
+            let passwordLogin = document.getElementById('passwordLogin').value.trim();
+            if(!cifLogin || !emailLogin || !passwordLogin){ alert('Ingrese datos correctamente'); return; }
+
+            let formData = new FormData();
+            formData.append('cif', cifLogin);
+            formData.append('email', emailLogin);
+            formData.append('password', passwordLogin);
+
+            btnLogin.innerText = 'Login..'
+            
+            registerRequest('login/', formData)
+                .then(data => {
+                    if(data && data.company_id && data.uid && data.status == 'ok'){
+                        btnLogin.innerText = 'Credenciales correctos';
+                        window.localStorage.setItem('company_id', data.company_id);
+                        window.localStorage.setItem('uid', data.uid);
+                        window.localStorage.setItem('cif', cifLogin);
+                        window.localStorage.setItem('email', emailLogin);
+                        window.localStorage.setItem('password', passwordLogin);
+                        setTimeout(() => {
+                            window.location.href = '/dashboard.html';
+                        }, 1000);
+                    } else {
+                        btnLogin.innerText = 'Error..';
+                        setTimeout(() => { btnLogin.innerText = 'Iniciar sesión'; }, 11000);
+                    }
+                })
+                .catch(error => {
+                    btnLogin.innerText = 'Error '+error;
+                    setTimeout(() => { btnLogin.innerText = 'Iniciar sesión'; }, 11000);
+                });
+        });
+    </script>
 </body>
 </html>

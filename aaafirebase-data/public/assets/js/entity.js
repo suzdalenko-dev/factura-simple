@@ -1,0 +1,3 @@
+let entity_factura = {
+    
+}
