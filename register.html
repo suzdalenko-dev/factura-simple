@@ -101,6 +101,7 @@
                         window.localStorage.setItem('cif', cifId);
                         window.localStorage.setItem('email', emailId);
                         window.localStorage.setItem('password', passId);
+                        setTimeout(() => { window.location.href = '/'; }, 3000);
                     } else {
                         registerAccount.innerText = 'Error..';
                         setTimeout(() => { registerAccount.innerText = 'Registrar cuenta..'; }, 11000);

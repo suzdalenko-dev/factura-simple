@@ -38,6 +38,12 @@ document.getElementById('articuloClick').addEventListener('click', () => {
     defaultController('get', DEFAULT_ENTITY, 0);
 });
 
+
+document.getElementById('miEmpresaClick').addEventListener('click', () => {
+    DEFAULT_ENTITY = {name:'empresa', title:'Mi Empresa'};
+    defaultController('get', DEFAULT_ENTITY, 0);
+});
+
 function crearTablaEntidadPrincipal(listData, entityData){
 
 }
