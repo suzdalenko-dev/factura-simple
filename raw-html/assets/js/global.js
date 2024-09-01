@@ -52,3 +52,12 @@ function formatDateInvoice() {
     const year = miDate.getFullYear(); 
     return `${day}/${month}/${year}`;
 }
+
+
+let IVAS_LIST = [
+    {'title': 21, 'percentage': ' 21 % '},
+    {'title': 10, 'percentage': ' 10 % '},
+    {'title': 4, 'percentage': ' 4 % '},
+    {'title': 0, 'percentage': ' 0 % '},
+    {'title': '0EXENTO', 'percentage': ' 0 EXENTO '},
+];

@@ -43,17 +43,17 @@ document.getElementById('miEmpresaClick').addEventListener('click', () => {
 
 /* botones +article, +customer +invoice */
 document.getElementById('addArticleClick').addEventListener('click', () => {
-    crearAddArticleCustomInvoice({'name':'articulo', 'title':'Crear Artículo'}, null);
+    addNewArticleNewCustomer({'name':'articulo', 'title':'Crear Artículo'}, null);
 });
 
 document.getElementById('addCustomerClick').addEventListener('click', () => {
-    crearAddArticleCustomInvoice({'name':'cliente', 'title':'Crear Cliente'}, null);
+    addNewArticleNewCustomer({'name':'cliente', 'title':'Crear Cliente'}, null);
 });
 
 document.getElementById('addInvoiceClick').addEventListener('click', () => {
     alert('añadir nueva factura')
     // crearVistaListadoFacturas({'name':'factura', 'title': 'Crear Factura'}, );
-    // crearAddArticleCustomInvoice({'name':'factura', 'title': 'Crear Factura'}, null);
+    // addNewArticleNewCustomer({'name':'factura', 'title': 'Crear Factura'}, null);
 });
 
 
