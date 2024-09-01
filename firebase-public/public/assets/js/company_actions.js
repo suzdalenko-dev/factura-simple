@@ -48,6 +48,6 @@ function saveDataCompany(event) {
 
     setTimeout(() => {
         idSaveDataCompany.innerHTML = '<i class="fas fa-save"></i> Guardar';
-    }, 11000);
+    }, 22000);
    
 }

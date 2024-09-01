@@ -1,8 +1,9 @@
-function saveNewCustomer(event){
+function saveNewCustomer(event, client_id){
     event.preventDefault();
-
     let inputCifCliente   = document.getElementById('inputCifCliente').value.trim();         if(!inputCifCliente) { alert('CIF NIF'); return; }
-    let inputNameCliente  = document.getElementById('inputNameCliente').value.trim();        if(!inputNameCliente) { alert('Nombre'); return; }
+    let inputRazonCliente = document.getElementById('inputRazonCliente').value.trim();       if(!inputRazonCliente) { alert('Razón o denominación social'); return; }
+    let inputPersonName = document.getElementById('inputPersonName').value.trim();           if(!inputPersonName) { alert('Nombre y apellidos persona'); return; }
+
     let inputEmailCliente = document.getElementById('inputEmailCliente').value.trim();       if(!inputEmailCliente) { alert('Email'); return; }
     let inputPhoneCliente = document.getElementById('inputPhoneCliente').value.trim();       if(!inputPhoneCliente) { alert('Teléfono'); return; }
 
@@ -17,8 +18,9 @@ function saveNewCustomer(event){
 
     let formData = new FormData();
         formData.append('cif_nif', inputCifCliente);    
-        formData.append('name', inputNameCliente);
-        formData.append('email', inputEmailCliente);
+        formData.append('razon', inputRazonCliente);
+        formData.append('person_name', inputPersonName);
+        formData.append('emailcustomer', inputEmailCliente);
         formData.append('phone', inputPhoneCliente);
 
         formData.append('country', inputCountryCliente);
@@ -27,7 +29,7 @@ function saveNewCustomer(event){
         formData.append('city', inputCityCliente);
         formData.append('address', inputAddressCliente);
 
-    postRequest('default/put/cliente/0', formData).then(dataArticle => {
+    postRequest('default/put/cliente/'+client_id, formData).then(dataArticle => {
         try{
             DEFAULT_ENTITY = {name:'cliente', title:'Clientes'};
             defaultController('get', DEFAULT_ENTITY, 0);
@@ -40,6 +42,18 @@ function saveNewCustomer(event){
         if(idSaveNewCustomer){
             idSaveNewCustomer.innerHTML = '<i class="fas fa-save"></i> Guardar';
         }
-    }, 11000);
-    
+    }, 11000);   
+}
+
+
+function showCustomClient(clienteId){
+    let formData = new FormData();
+    postRequest('default/get/cliente/'+clienteId, formData).then(dataCliente => {
+        try{
+            let titleView = 'Cliente '+dataCliente.res[0].razon;
+            crearAddArticleCustomInvoice({'name':'cliente', 'title':titleView}, dataCliente);
+        } catch (error) {
+            alert('Error al grabar artículo '+error);
+        }
+    });
 }

@@ -1,10 +1,11 @@
 function checkCompanyData(dataCompany){
     if(dataCompany){
-        let errorsCompany = '';
+        let errorsCompany = '';                                                       
         if(!dataCompany.id){ errorsCompany += 'ID empresa \n'; }
-        if(!dataCompany.description){ errorsCompany += 'Nombre empresa \n';  }
+        if(!dataCompany.razon){ errorsCompany += 'Razón o denominación social \n';  }
+        if(!dataCompany.person_name) {errorsCompany += 'Nombre de la persona vacío \n';}
         if(!dataCompany.cif){ errorsCompany += 'CIF empresa \n'; }
-        if(!dataCompany.emailcliente){ errorsCompany += 'Email empresa \n'; }
+        if(!dataCompany.emailcompany){ errorsCompany += 'Email empresa \n'; }
         if(!dataCompany.country){ errorsCompany += 'País empresa \n'; }
         if(!dataCompany.province){ errorsCompany += 'Provincia empresa \n'; }
         if(!dataCompany.address){ errorsCompany += 'Dirección empresa \n'; }
@@ -15,7 +16,7 @@ function checkCompanyData(dataCompany){
         if(errorsCompany != ''){
             setTimeout(()=>{
                 alert('Datos de la empresa incompletos: \n'+errorsCompany);
-            }, 1000)
+            }, 1000);
         }
     }
 }
@@ -31,7 +32,7 @@ function crearTablaEntidadPrincipal(listData, entityData){             console.l
         if(listData && listData.length > 0){
             htmlTotalArticles = `Total artículos ${listData.length}`;
             listData.forEach(i => {
-                tableContent += `<tr><td>${i.artcode}</td><td>${i.description}</td><td>${i.price} €</td><td><i class="fas fa-edit grey_color" onclick="editArticleClick()"></i> <i class="fa fa-trash grey_color" onclick="deleteArticleClick()"></i></td></tr>`;
+                tableContent += `<tr><td>${i.artcode}</td><td>${i.description}</td><td>${i.price} €</td></tr>`;
             });
         }
         currentHtmlEntity = `<div class="container-fluid">
@@ -44,7 +45,7 @@ function crearTablaEntidadPrincipal(listData, entityData){             console.l
                                             <div class="row">
                                                 <div class="col-sm-12">
                                                     <table class="table table-bordered dataTable">
-                                                        <thead><tr><th>Número</th><th>Descripción</th><th>Precio unidad</th><th>Acción</th></tr></thead>
+                                                        <thead><tr><th>Número</th><th>Descripción</th><th>Precio unidad</th></tr></thead>
                                                         <tbody>`+tableContent+`</tbody>
                                                     </table>
                                                 </div>
@@ -61,8 +62,13 @@ function crearTablaEntidadPrincipal(listData, entityData){             console.l
         if(listData && listData.length > 0){
             htmlTotalClientes = `Total clientes ${listData.length}`;
             listData.forEach(i => {
-                tableContent += `<tr><td>${i.clientcode}</td><td>${i.cif_nif} ${i.name}</td><td>${i.city}</td><td>${i.phone}</td><td>${i.email}</td>
-                <td><i class="fas fa-edit grey_color" onclick="editArticleClick()"></i> <i class="fa fa-trash grey_color" onclick="deleteArticleClick()"></i></td></tr>`;
+                tableContent += `<tr>
+                                    <td>${i.clientcode}</td>
+                                    <td><a onclick="showCustomClient(${i.id})" href="#ShowClient-${i.clientcode}">${i.cif_nif}</a></td>
+                                    <td>${i.razon}</td>
+                                    <td>${i.city}</td>
+                                    <td>${i.phone}</td>
+                                </tr>`;
             });
         }
         currentHtmlEntity = `<div class="container-fluid">
@@ -75,7 +81,7 @@ function crearTablaEntidadPrincipal(listData, entityData){             console.l
                                             <div class="row">
                                                 <div class="col-sm-12">
                                                     <table class="table table-bordered dataTable">
-                                                        <thead><tr><th>Núm</th><th>Descripción</th><th>Cuídad</th><th>Telefóno</th><th>Email</th><th>Acción</th></tr></thead>
+                                                        <thead><tr><th>Núm</th><th>CIF NIF</th><th>Razón o denominación social</th><th>Cuídad</th><th>Telefóno</th></tr></thead>
                                                         <tbody>`+tableContent+`</tbody>
                                                     </table>
                                                 </div>
@@ -86,8 +92,9 @@ function crearTablaEntidadPrincipal(listData, entityData){             console.l
                             </div>`
     } else if('empresa' == entityData.name){
         /* "Pestaña Mi Empresa" */
-        let companyName  = String(listData[0].description) == 'null' ? '' : listData[0].description;
-        let emailCustom  = String(listData[0].emailcliente) == 'null' ? '' : listData[0].emailcliente;
+        let companyName  = String(listData[0].razon) == 'null' ? '' : listData[0].razon;
+        let person_name = String(listData[0].person_name) == 'null' ? '' : listData[0].person_name;
+        let emailCustom  = String(listData[0].emailcompany) == 'null' ? '' : listData[0].emailcompany;
         let companyCif   = String(listData[0].cif) == 'null' ? '' : listData[0].cif;
         let companyEmail = String(listData[0].email) == 'null' ? '' : listData[0].email;
         let paisName     = String(listData[0].country) == 'null' ? '' : listData[0].country;
@@ -107,13 +114,15 @@ function crearTablaEntidadPrincipal(listData, entityData){             console.l
                                                 <h6 class="m-0 font-weight-bold text-primary">Denominación</h6>
                                             </div>
                                             <div class="card-body">
-                                                <div class="mt-2 mb-2 "><code>Nombre</code></div>
+                                                <div class="mt-0 mb-1 "><code>Razón o denominación social</code></div>
                                                 <input type="text" value="${companyName}" id="inputCompanyName">
-                                                <div class="mt-2 mb-2 "><code>Email cara cliente</code></div>
+                                                <div class="mt-3 mb-1 "><code>Nombre y apellidos persona</code></div>
+                                                <input type="text" value="${person_name}" id="inputPersonName">
+                                                <div class="mt-3 mb-1 "><code>Email cara cliente</code></div>
                                                 <input type="text" value="${emailCustom}" id="inpuEmailCustom">
-                                                <div class="mt-0 mb-2 "><code>CIF</code></div>
+                                                <div class="mt-3 mb-1 "><code>CIF-NIF</code></div>
                                                 <input type="text" value="${companyCif}" disabled>
-                                                <div class="mt-2 mb-2 "><code>Email login</code></div>
+                                                <div class="mt-3 mb-1 "><code>Email login</code></div>
                                                 <input type="text" value="${companyEmail}" disabled>
                                             </div>
                                         </div>
@@ -124,19 +133,19 @@ function crearTablaEntidadPrincipal(listData, entityData){             console.l
                                                 <h6 class="m-0 font-weight-bold text-primary">Dirección</h6>
                                             </div>
                                             <div class="card-body">
-                                                <div class="mt-0 mb-2 "><code>País</code></div>
+                                                <div class="mt-0 mb-1 "><code>País</code></div>
                                                 <input type="text" id="inputCountry" value="${paisName}">
-                                                <div class="mt-2 mb-2 "><code>Provincia</code></div>
+                                                <div class="mt-3 mb-1 "><code>Provincia</code></div>
                                                 <input type="text" id="inputProvincy" value="${provinceName}">
-                                                <div class="mt-2 mb-2 "><code>Código postal</code></div>
+                                                <div class="mt-3 mb-1 "><code>Código postal</code></div>
                                                 <input type="text" id="inputZipCode" value="${zipcodeData}">
-                                                <div class="mt-2 mb-2 "><code>Cuidad</code></div>
+                                                <div class="mt-3 mb-1 "><code>Cuidad</code></div>
                                                 <input type="text" id="inputCity" value="${cityData}">
-                                                <div class="mt-2 mb-2 "><code>Dirección</code></div>
+                                                <div class="mt-3 mb-1 "><code>Dirección</code></div>
                                                 <input type="text" id="inputAddress" value="${addressData}">
-                                                <div class="mt-2 mb-2 "><code>Teléfono principal</code></div>
+                                                <div class="mt-3 mb-1 "><code>Teléfono principal</code></div>
                                                 <input type="text" id="inputPhone1" value="${phone1}">
-                                                <div class="mt-2 mb-2 "><code>Teléfono</code></div>
+                                                <div class="mt-3 mb-1 "><code>Teléfono</code></div>
                                                 <input type="text" id="inputPhone2" value="${phone2}">
                                             </div>
                                         </div>
@@ -147,7 +156,7 @@ function crearTablaEntidadPrincipal(listData, entityData){             console.l
                                                 <h6 class="m-0 font-weight-bold text-primary">Precío</h6>
                                             </div>
                                             <div class="card-body">
-                                                <div class="mt-2 mb-2 "><code>Precio €/hora mano de obra</code></div>
+                                                <div class="mt-0 mb-1 "><code>Precio €/hora mano de obra</code></div>
                                                 <input type="number" id="inputPriceHour" value="${priceData}">
                                             </div>
                                         </div>
@@ -161,7 +170,7 @@ function crearTablaEntidadPrincipal(listData, entityData){             console.l
 
 
 
-function crearAddArticleCustomInvoice(entity){
+function crearAddArticleCustomInvoice(entity, datosEntidadConcreta){
     pageTitle.innerText = entity.title;
     let currentHtmlEntity = '<span>'+entity.name+'</span>';
     /* creating new ARTICLE */
@@ -174,9 +183,9 @@ function crearAddArticleCustomInvoice(entity){
                                                 <h6 class="m-0 font-weight-bold text-primary">Descripción</h6>
                                             </div>
                                             <div class="card-body">
-                                                <div class="mt-2 mb-2 "><code>Nombre</code></div>
+                                                <div class="mt-0 mb-1 "><code>Nombre</code></div>
                                                 <input type="text" value="" id="inputArticleName">
-                                                <div class="mt-2 mb-2 "><code>Precío €/unidad</code></div>
+                                                <div class="mt-3 mb-1 "><code>Precío €/unidad</code></div>
                                                 <input type="number" value="" id="inpuArticlePrice">
                                             </div>
                                         </div>
@@ -186,7 +195,21 @@ function crearAddArticleCustomInvoice(entity){
                             </div>`;
     }
     /* creating new CUSTOMER */
-    if(entity.name == 'cliente'){
+    if(entity.name == 'cliente'){                                   console.log(datosEntidadConcreta)
+        let clientcodeB    = ''; let countryB  = '';
+        let cifNifB        = ''; let provinceB = '';
+        let razonB         = ''; let zipcodeB  = '';
+        let person_nameB   = ''; let cityB     = '';
+        let emailcustomerB = ''; let addressB  = '';
+        let phoneB         = ''; let CLIENT_ID = 0;
+        if(datosEntidadConcreta && datosEntidadConcreta.res && datosEntidadConcreta.res[0] && datosEntidadConcreta.res[0].id > 0){
+            clientcodeB    = datosEntidadConcreta.res[0].clientcode;    countryB  = datosEntidadConcreta.res[0].country; 
+            cifNifB        = datosEntidadConcreta.res[0].cif_nif;       provinceB = datosEntidadConcreta.res[0].province; 
+            razonB         = datosEntidadConcreta.res[0].razon;         zipcodeB  = datosEntidadConcreta.res[0].zipcode; 
+            person_nameB   = datosEntidadConcreta.res[0].person_name;   cityB     = datosEntidadConcreta.res[0].city; 
+            emailcustomerB = datosEntidadConcreta.res[0].emailcustomer; addressB  = datosEntidadConcreta.res[0].address;
+            phoneB         = datosEntidadConcreta.res[0].phone;         CLIENT_ID = datosEntidadConcreta.res[0].id; 
+        }
         currentHtmlEntity = `<div class="container-fluid">
                                 <div class="row">
                                     <div class="col-lg-4">
@@ -195,16 +218,18 @@ function crearAddArticleCustomInvoice(entity){
                                                 <h6 class="m-0 font-weight-bold text-primary">Denominación</h6>
                                             </div>
                                             <div class="card-body">
-                                                <div class="mt-0 mb-2 "><code>Codígo cliente</code></div>
-                                                <input type="text" value="" disabled id="inputCodigoCLiente">
-                                                <div class="mt-2 mb-2 "><code>CIF NIF</code></div>
-                                                <input type="text" value="" id="inputCifCliente">
-                                                <div class="mt-2 mb-2 "><code>Nombre</code></div>
-                                                <input type="text" value="" id="inputNameCliente">
-                                                <div class="mt-2 mb-2 "><code>Email</code></div>
-                                                <input type="text" value="" id="inputEmailCliente">
-                                                <div class="mt-2 mb-2 "><code>Teléfono</code></div>
-                                                <input type="text" id="inputPhoneCliente" value="">
+                                                <div class="mt-0 mb-1 "><code>Codígo cliente</code></div>
+                                                <input type="text" value="${clientcodeB}" disabled id="inputCodigoCLiente">
+                                                <div class="mt-3 mb-1 "><code>CIF NIF</code></div>
+                                                <input type="text" value="${cifNifB}" id="inputCifCliente">
+                                                <div class="mt-3 mb-1 "><code>Razón o denominación social</code></div>
+                                                <input type="text" value="${razonB}" id="inputRazonCliente">
+                                                <div class="mt-3 mb-1 "><code>Nombre y apellidos persona</code></div>
+                                                <input type="text" value="${person_nameB}" id="inputPersonName">
+                                                <div class="mt-3 mb-1 "><code>Email</code></div>
+                                                <input type="text" value="${emailcustomerB}" id="inputEmailCliente">
+                                                <div class="mt-3 mb-1 "><code>Teléfono</code></div>
+                                                <input type="text" id="inputPhoneCliente" value="${phoneB}">
                                             </div>
                                         </div>
                                     </div>
@@ -214,16 +239,16 @@ function crearAddArticleCustomInvoice(entity){
                                                 <h6 class="m-0 font-weight-bold text-primary">Dirección</h6>
                                             </div>
                                             <div class="card-body">
-                                                <div class="mt-0 mb-2 "><code>País</code></div>
-                                                <input type="text" id="inputCountryCliente" value="">
-                                                <div class="mt-2 mb-2 "><code>Provincia</code></div>
-                                                <input type="text" id="inputProvincyCliente" value="">
-                                                <div class="mt-2 mb-2 "><code>Código postal</code></div>
-                                                <input type="text" id="inputZipCodeCliente" value="">
-                                                <div class="mt-2 mb-2 "><code>Cuidad</code></div>
-                                                <input type="text" id="inputCityCliente" value="">
-                                                <div class="mt-2 mb-2 "><code>Dirección</code></div>
-                                                <input type="text" id="inputAddressCliente" value="">
+                                                <div class="mt-0 mb-1 "><code>País</code></div>
+                                                <input type="text" id="inputCountryCliente" value="${countryB}">
+                                                <div class="mt-3 mb-1 "><code>Provincia</code></div>
+                                                <input type="text" id="inputProvincyCliente" value="${provinceB}">
+                                                <div class="mt-3 mb-1 "><code>Código postal</code></div>
+                                                <input type="text" id="inputZipCodeCliente" value="${zipcodeB}">
+                                                <div class="mt-3 mb-1 "><code>Cuidad</code></div>
+                                                <input type="text" id="inputCityCliente" value="${cityB}">
+                                                <div class="mt-3 mb-1 "><code>Dirección</code></div>
+                                                <input type="text" id="inputAddressCliente" value="${addressB}">
                                             </div>
                                         </div>
                                     </div>
@@ -238,7 +263,7 @@ function crearAddArticleCustomInvoice(entity){
                                         </div>
                                     </div>
                                 </div>
-                                <a href="#" class="btn btn-facebook btn-block" onclick="saveNewCustomer(event)" id="idSaveNewCustomer"><i class="fas fa-save"></i> Guardar</a>
+                                <a href="#" class="btn btn-facebook btn-block" onclick="saveNewCustomer(event, ${CLIENT_ID})" id="idSaveNewCustomer"><i class="fas fa-save"></i> Guardar</a>
                             </div>`;
     }
     /* creating new INVOICE */

@@ -30,9 +30,9 @@
             </a>
             <hr class="sidebar-divider my-0">
             <li class="nav-item active">
-                <a class="nav-link" href="#Invoice" id="facturaClick"><i class="fas fa-file-invoice"></i> <span>Factura</span></a>
-                <a class="nav-link" href="#Customer" id="clienteClick"><i class="fa-solid fa-users"></i> <span>Cliente</span></a>
-                <a class="nav-link" href="#Article" id="articuloClick"><i class="fa-sharp-duotone fa-solid fa-car-battery"></i></i><span>Artículo</span></a>
+                <a class="nav-link" href="#Invoice" id="facturaClick"><i class="fas fa-file-invoice"></i> <span>Facturas</span></a>
+                <a class="nav-link" href="#Customer" id="clienteClick"><i class="fa-solid fa-users"></i> <span>Clientes</span></a>
+                <a class="nav-link" href="#Article" id="articuloClick"><i class="fa-sharp-duotone fa-solid fa-car-battery"></i></i><span>Artículos</span></a>
             </li>
             <hr class="sidebar-divider">
             <div class="sidebar-heading">
@@ -76,12 +76,9 @@
                     <form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Buscar..."
-                                aria-label="Search" aria-describedby="basic-addon2">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Buscar.." id="searchInputId">
                             <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
+                                <button class="btn btn-primary" type="button" id="buttonIdSearch"><i class="fas fa-search fa-sm"></i></button>
                             </div>
                         </div>
                     </form>
@@ -90,8 +87,8 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Nombre Empesa</span>
-                                <img class="img-profile rounded-circle" src="https://suzdalenko-dev.web.app/assets/img/x.jpg" alt="Factura Simple">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"></span>
+                                <img class="img-profile rounded-circle" src="/assets/img/loginimage.jpg" alt="Factura Simple">
                             </a>
 
                         </li>
@@ -99,11 +96,26 @@
                 </nav>
 
                 <div class="container-fluid">
-                    <h1 class="h3 mb-2 text-gray-800" id="pageTitle">Simple Factura..</h1>
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800" id="pageTitle">Simple Factura..</h1>
+                        <div>
+                            <a href="#CreateArticle" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="addArticleClick"><i class="fa-solid fa-plus fa-sm text-white-50"></i> Articulo</a>
+                            <a href="#CreateCustomer" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="addCustomerClick"><i class="fa-solid fa-plus fa-sm text-white-50"></i> Cliente</a>
+                            <a href="#CreateInvoice" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="addInvoiceClick"><i class="fa-solid fa-plus fa-sm text-white-50"></i> Factura</a>
+                        </div>
+                    </div>
                 </div>
+
+
+
                 <div id="pageMainContent">
 
                 </div>
+
+
+
+
             </div>
  
             <footer class="sticky-footer bg-white">
@@ -117,48 +129,24 @@
     </div>
     <script src="/assets/js/dashboard_vars.js"></script>
     <script src="/assets/js/menu_functions.js"></script>
-
+    <script src="/assets/js/article_actions.js"></script>
+    <script src="/assets/js/customer_actions.js"></script>
 
     <script src="/assets/js/company_actions.js"></script>
-
     <script src="/assets/js/menu_actions.js"></script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CWWL3B70KX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-CWWL3B70KX');
+    </script>
 </body>
 </html>
 
 
-<div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary" id="tablaTitulo">Listado</h6>
-</div>
-<div class="card-body">
-    <div class="table-responsive">
-        <div class="row">
-            <div class="col-sm-12">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr role="row">
-                            <th>Name 0</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="odd">
-                            <td class="sorting_1">Airi Satou</td>
-                            <td>Accountant</td>
-                            <td>Tokyo</td>
-                            <td>33</td>
-                            <td>2008/11/28</td>
-                            <td>$162,700</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 
 <select name="fruits" id="fruits">

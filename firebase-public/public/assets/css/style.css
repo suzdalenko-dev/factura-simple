@@ -1,3 +1,13 @@
 input{
     width: 100%;
+    color:#000c63
+}
+
+.grey_color{
+    color: rgb(193, 192, 255);
+}
+
+.grey_color:hover{
+    cursor: pointer;
+    color:#000c63;
 }

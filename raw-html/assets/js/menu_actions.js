@@ -5,8 +5,8 @@ function defaultController(action, entidad, id){
     
     postRequest(url, formData).then(data => {
         if(data && data.res){                                       
-            crearTablaEntidadPrincipal(data.res, entidad)
-            checkCompanyData(data.company)
+            crearTablaEntidadPrincipal(data.res, entidad);
+            checkCompanyData(data.company);
         } else {
             alert('Error al traer datos 3 '+ entidad.name);
         }
@@ -17,8 +17,6 @@ function defaultController(action, entidad, id){
 }
 
 defaultController(DEFAULT_ACTION, DEFAULT_ENTITY, 0);
-// crearAddArticleCustomInvoice({'name':'cliente', 'title':'Crear Cliente'});
-// crearAddArticleCustomInvoice({'name':'articulo', 'title':'Crear Artículo'});
 
 
 /* button en left menu */
@@ -45,15 +43,17 @@ document.getElementById('miEmpresaClick').addEventListener('click', () => {
 
 /* botones +article, +customer +invoice */
 document.getElementById('addArticleClick').addEventListener('click', () => {
-    crearAddArticleCustomInvoice({'name':'articulo', 'title':'Crear Artículo'});
+    crearAddArticleCustomInvoice({'name':'articulo', 'title':'Crear Artículo'}, null);
 });
 
 document.getElementById('addCustomerClick').addEventListener('click', () => {
-    crearAddArticleCustomInvoice({'name':'cliente', 'title':'Crear Cliente'});
+    crearAddArticleCustomInvoice({'name':'cliente', 'title':'Crear Cliente'}, null);
 });
 
 document.getElementById('addInvoiceClick').addEventListener('click', () => {
-    crearAddArticleCustomInvoice({'name':'factura', 'title': 'Crear Factura'});
+    alert('añadir nueva factura')
+    // crearVistaListadoFacturas({'name':'factura', 'title': 'Crear Factura'}, );
+    // crearAddArticleCustomInvoice({'name':'factura', 'title': 'Crear Factura'}, null);
 });
 
 

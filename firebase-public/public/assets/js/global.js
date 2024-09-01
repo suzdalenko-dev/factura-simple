@@ -44,3 +44,11 @@ async function postRequest(url, formData){
     }
 }
 
+
+function formatDateInvoice() {
+    let miDate = new Date();
+    const day = String(miDate.getDate()).padStart(2, '0'); 
+    const month = String(miDate.getMonth() + 1).padStart(2, '0');
+    const year = miDate.getFullYear(); 
+    return `${day}/${month}/${year}`;
+}
