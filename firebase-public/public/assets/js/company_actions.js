@@ -2,6 +2,8 @@ function saveDataCompany(event) {
     event.preventDefault();
     let inputCompanyName = document.getElementById('inputCompanyName').value.trim();
     if(!inputCompanyName){ alert('Nombre empresa vacío'); return; }
+    let inputPersonName = document.getElementById('inputPersonName').value.trim();
+    if(!inputPersonName) { alert('Nombre de la persona vacío'); return; }
     let inpuEmailCustom = document.getElementById('inpuEmailCustom').value.trim();
     if(!inpuEmailCustom){ alert('Email cara cliente vacío'); return; }
     let inputCountry = document.getElementById('inputCountry').value.trim();
@@ -19,14 +21,15 @@ function saveDataCompany(event) {
     let inputPhone2 = document.getElementById('inputPhone2').value.trim(); 
     if(!inputPhone2){ alert('Telefono'); return; }
     let inputPriceHour = document.getElementById('inputPriceHour').value.trim();
-    if(!inputPriceHour){ alert('Precío €/hora'); return; }
+    if(!inputPriceHour || parseInt(inputPriceHour) <= 0){ alert('Precío €/hora'); return; }
 
     let idSaveDataCompany = document.getElementById('idSaveDataCompany');
         idSaveDataCompany.innerHTML = '<i class="fas fa-save"></i> Guardando..';
 
     let formData = new FormData();
-        formData.append('description', inputCompanyName);
-        formData.append('emailcliente', inpuEmailCustom);
+        formData.append('razon', inputCompanyName);
+        formData.append('person_name', inputPersonName);
+        formData.append('emailcompany', inpuEmailCustom);
         formData.append('country', inputCountry);
         formData.append('province', inputProvincy);
         formData.append('zipcode', inputZipCode);
