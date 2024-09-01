@@ -170,22 +170,33 @@ function crearTablaEntidadPrincipal(listData, entityData){             console.l
 
 
 
-function crearAddArticleCustomInvoice(entity, datosEntidadConcreta){
+function addNewArticleNewCustomer(entity, datosEntidadConcreta){
     pageTitle.innerText = entity.title;
     let currentHtmlEntity = '<span>'+entity.name+'</span>';
     /* creating new ARTICLE */
     if(entity.name == 'articulo'){
         currentHtmlEntity = `<div class="container-fluid">
                                 <div class="row">
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-6">
                                         <div class="card shadow mb-4">
                                             <div class="card-header py-3">
-                                                <h6 class="m-0 font-weight-bold text-primary">Descripción</h6>
+                                                <h6 class="m-0 font-weight-bold text-primary">Descripción artículo</h6>
                                             </div>
                                             <div class="card-body">
                                                 <div class="mt-0 mb-1 "><code>Nombre</code></div>
                                                 <input type="text" value="" id="inputArticleName">
-                                                <div class="mt-3 mb-1 "><code>Precío €/unidad</code></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="card shadow mb-4">
+                                            <div class="card-header py-3">
+                                                <h6 class="m-0 font-weight-bold text-primary">Datos de facturación</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="mt-0 mb-1 "><code>Precío €/unidad</code></div>
+                                                <input type="text" value="" id="inputArticleName">
+                                                <div class="mt-3 mb-1 "><code>Porcentaje de IVA</code></div>
                                                 <input type="number" value="" id="inpuArticlePrice">
                                             </div>
                                         </div>
@@ -265,10 +276,6 @@ function crearAddArticleCustomInvoice(entity, datosEntidadConcreta){
                                 </div>
                                 <a href="#" class="btn btn-facebook btn-block" onclick="saveNewCustomer(event, ${CLIENT_ID})" id="idSaveNewCustomer"><i class="fas fa-save"></i> Guardar</a>
                             </div>`;
-    }
-    /* creating new INVOICE */
-    if(entity.name == 'factura'){
-        pageTitle.innerHTML = entity.title+' '+formatDateInvoice()
     }
     pageMainContent.innerHTML = currentHtmlEntity;
 }

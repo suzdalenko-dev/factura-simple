@@ -51,7 +51,7 @@ function showCustomClient(clienteId){
     postRequest('default/get/cliente/'+clienteId, formData).then(dataCliente => {
         try{
             let titleView = 'Cliente '+dataCliente.res[0].razon;
-            crearAddArticleCustomInvoice({'name':'cliente', 'title':titleView}, dataCliente);
+            addNewArticleNewCustomer({'name':'cliente', 'title':titleView}, dataCliente);
         } catch (error) {
             alert('Error al grabar artículo '+error);
         }
