@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Software de gestión de las facturas y clientes para pequeño comercio">
+    <meta name="description" content="Software de gestión de las facturas y clientes para pequeño comercio, taller, autónomo">
     <meta name="author" content="Alexey Suzdalenko">
 
     <title>Factura Simple</title>
     <link href="/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link href="/assets/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="/assets/css/style.css" rel="stylesheet">
     <link rel="icon" href="/assets/img/favicon.png" sizes="32x32">
     <link rel="shortcut icon" href="/favicon.ico" type="image/vnd.microsoft.icon">
     <script src="/assets/js/global.js"></script>
@@ -62,6 +63,7 @@
             </div>
         </div>
     </div>
+    <div class="date_time_class" id="date_time_id"></div>
     <script>
         if(window.localStorage.getItem('cif') && window.localStorage.getItem('email') && window.localStorage.getItem('password')){
             document.getElementById('cifLogin').value = window.localStorage.getItem('cif');
@@ -113,5 +115,6 @@
       gtag('js', new Date());
       gtag('config', 'G-CWWL3B70KX');
     </script>
+    <script src="/assets/js/utils.js"></script>
 </body>
 </html>

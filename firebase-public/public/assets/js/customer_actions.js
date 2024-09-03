@@ -53,6 +53,19 @@ function showCustomClient(clienteId){
             let titleView = 'Cliente '+dataCliente.res[0].razon;
             addNewArticleNewCustomer({'name':'cliente', 'title':titleView}, dataCliente);
         } catch (error) {
+            alert('Error al grabar cliente '+error);
+        }
+    });
+}
+
+
+function showCustomArticle(articleId){
+    let formData = new FormData();
+    postRequest('default/get/articulo/'+articleId, formData).then(dataArticle => {
+        try{
+            let titleView = 'Artículo '+dataArticle.res[0].description;
+            addNewArticleNewCustomer({'name':'articulo', 'title':titleView}, dataArticle);
+        } catch (error) {
             alert('Error al grabar artículo '+error);
         }
     });

@@ -52,3 +52,23 @@ function formatDateInvoice() {
     const year = miDate.getFullYear(); 
     return `${day}/${month}/${year}`;
 }
+
+function globalCurrentDate(){
+    let currentDate = new Date();
+    let hours = String(currentDate.getHours()).padStart(2, '0');
+    let minutes = String(currentDate.getMinutes()).padStart(2, '0');
+    let seconds = String(currentDate.getSeconds()).padStart(2, '0');
+    let day = String(currentDate.getDate()).padStart(2, '0');
+    let month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Los meses empiezan desde 0
+    let year = currentDate.getFullYear();
+    return `${hours}:${minutes}:${seconds} ${day}/${month}/${year}`;
+}
+
+
+let IVAS_LIST = [
+    {'title': 21, 'percentage': ' 21 % '},
+    {'title': 10, 'percentage': ' 10 % '},
+    {'title': 4, 'percentage': ' 4 % '},
+    {'title': 0, 'percentage': ' 0 % '},
+    {'title': '0EXENTO', 'percentage': ' 0 EXENTO '},
+];

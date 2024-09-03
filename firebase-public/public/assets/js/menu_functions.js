@@ -21,10 +21,9 @@ function checkCompanyData(dataCompany){
     }
 }
 
-function crearTablaEntidadPrincipal(listData, entityData){             console.log(listData)
-
+// listado completo de articulos o clientes
+function crearTablaEntidadPrincipal(listData, entityData){             
     let currentHtmlEntity = '<span>'+entityData.name+'</span>';
-    
     if('articulo' == entityData.name){
         /* Pestaña Articulos */
         let tableContent = '';
@@ -32,7 +31,13 @@ function crearTablaEntidadPrincipal(listData, entityData){             console.l
         if(listData && listData.length > 0){
             htmlTotalArticles = `Total artículos ${listData.length}`;
             listData.forEach(i => {
-                tableContent += `<tr><td>${i.artcode}</td><td>${i.description}</td><td>${i.price} €</td></tr>`;
+                tableContent += `<tr>
+                                    <td>${i.artcode}</td>
+                                    <td><a onclick="showCustomArticle(${i.id})" href="#ShowArticle-${i.artcode}">${i.description}</a></td>
+                                    <td>${i.price} €</td>
+                                    <td>${i.iva}</td>
+                                    <td>${i.ivatype}</td>
+                                </tr>`;
             });
         }
         currentHtmlEntity = `<div class="container-fluid">
@@ -45,7 +50,7 @@ function crearTablaEntidadPrincipal(listData, entityData){             console.l
                                             <div class="row">
                                                 <div class="col-sm-12">
                                                     <table class="table table-bordered dataTable">
-                                                        <thead><tr><th>Número</th><th>Descripción</th><th>Precio unidad</th></tr></thead>
+                                                        <thead><tr><th>Número</th><th>Descripción</th><th>Precio unidad</th><th>IVA</th><th>Tipo</th></tr></thead>
                                                         <tbody>`+tableContent+`</tbody>
                                                     </table>
                                                 </div>
@@ -169,12 +174,36 @@ function crearTablaEntidadPrincipal(listData, entityData){             console.l
 }
 
 
-
+iva
+: 
+"4.00"
+ivatype
+: 
+"norm"
+price
+: 
+"34.56"
 function addNewArticleNewCustomer(entity, datosEntidadConcreta){
     pageTitle.innerText = entity.title;
-    let currentHtmlEntity = '<span>'+entity.name+'</span>';
+    let currentHtmlEntity = '<span>'+entity.name+'</span>'; 
     /* creating new ARTICLE */
     if(entity.name == 'articulo'){
+        let descriptionC = ''; let ivaC         = ''; let valorIva = 0; let tipoIva = 'normal';
+        if(datosEntidadConcreta && datosEntidadConcreta.res && datosEntidadConcreta.res[0] && datosEntidadConcreta.res[0].id > 0){
+            descriptionC = datosEntidadConcreta.res[0].description;
+            ivaC         = datosEntidadConcreta.res[0].price;
+            valorIva     = datosEntidadConcreta.res[0].iva;
+            tipoIva      = datosEntidadConcreta.res[0].ivatype;
+        }
+        // alert(valorIva) aqui me falta guardar update este articulo y luego, y que se muestre el tipo adecuado
+        let htmlIvas = '<select id="inputArticleIva">';
+        let selectedType = '';
+        IVAS_LIST.forEach(iva => { // && tipoIva != 'norm'
+            if(iva.title == valorIva ){ selectedType = 'selected'; }
+            htmlIvas += `<option value="${iva.title}" ${selectedType}>${iva.percentage}</option>`;
+            selectedType = '';
+        });
+        htmlIvas += '</select>';
         currentHtmlEntity = `<div class="container-fluid">
                                 <div class="row">
                                     <div class="col-lg-6">
@@ -184,7 +213,7 @@ function addNewArticleNewCustomer(entity, datosEntidadConcreta){
                                             </div>
                                             <div class="card-body">
                                                 <div class="mt-0 mb-1 "><code>Nombre</code></div>
-                                                <input type="text" value="" id="inputArticleName">
+                                                <input type="text" value="${descriptionC}" id="inputArticleName">
                                             </div>
                                         </div>
                                     </div>
@@ -195,9 +224,9 @@ function addNewArticleNewCustomer(entity, datosEntidadConcreta){
                                             </div>
                                             <div class="card-body">
                                                 <div class="mt-0 mb-1 "><code>Precío €/unidad</code></div>
-                                                <input type="text" value="" id="inputArticleName">
+                                                <input type="number" value="${ivaC}" id="inputArticlePrice">
                                                 <div class="mt-3 mb-1 "><code>Porcentaje de IVA</code></div>
-                                                <input type="number" value="" id="inpuArticlePrice">
+                                                ${htmlIvas}
                                             </div>
                                         </div>
                                     </div>
@@ -206,7 +235,7 @@ function addNewArticleNewCustomer(entity, datosEntidadConcreta){
                             </div>`;
     }
     /* creating new CUSTOMER */
-    if(entity.name == 'cliente'){                                   console.log(datosEntidadConcreta)
+    if(entity.name == 'cliente'){
         let clientcodeB    = ''; let countryB  = '';
         let cifNifB        = ''; let provinceB = '';
         let razonB         = ''; let zipcodeB  = '';
