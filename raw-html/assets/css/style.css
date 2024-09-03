@@ -7,7 +7,12 @@ input{
     color: rgb(193, 192, 255);
 }
 
-.grey_color:hover{
+.grey_color:hover, .suggestion_item:hover{
     cursor: pointer;
     color:#000c63;
+}
+.date_time_class{
+    text-align: center;
+    color: rgb(102, 94, 196);
+    font-size: 4rem;
 }

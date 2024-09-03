@@ -35,7 +35,7 @@ function crearTablaEntidadPrincipal(listData, entityData){
                                     <td>${i.artcode}</td>
                                     <td><a onclick="showCustomArticle(${i.id})" href="#ShowArticle-${i.artcode}">${i.description}</a></td>
                                     <td>${i.price} €</td>
-                                    <td>${i.iva}</td>
+                                    <td>${i.iva} %</td>
                                     <td>${i.ivatype}</td>
                                 </tr>`;
             });
@@ -98,7 +98,7 @@ function crearTablaEntidadPrincipal(listData, entityData){
     } else if('empresa' == entityData.name){
         /* "Pestaña Mi Empresa" */
         let companyName  = String(listData[0].razon) == 'null' ? '' : listData[0].razon;
-        let person_name = String(listData[0].person_name) == 'null' ? '' : listData[0].person_name;
+        let person_name  = String(listData[0].person_name) == 'null' ? '' : listData[0].person_name;
         let emailCustom  = String(listData[0].emailcompany) == 'null' ? '' : listData[0].emailcompany;
         let companyCif   = String(listData[0].cif) == 'null' ? '' : listData[0].cif;
         let companyEmail = String(listData[0].email) == 'null' ? '' : listData[0].email;
@@ -174,36 +174,40 @@ function crearTablaEntidadPrincipal(listData, entityData){
 }
 
 
-iva
-: 
-"4.00"
-ivatype
-: 
-"norm"
-price
-: 
-"34.56"
 function addNewArticleNewCustomer(entity, datosEntidadConcreta){
     pageTitle.innerText = entity.title;
     let currentHtmlEntity = '<span>'+entity.name+'</span>'; 
     /* creating new ARTICLE */
     if(entity.name == 'articulo'){
-        let descriptionC = ''; let ivaC         = ''; let valorIva = 0; let tipoIva = 'normal';
+        let articleId = 0; 
+        let descriptionC = ''; 
+        let ivaC         = ''; 
+        let valorIva = 0; 
+        let tipoIva = 'normal';
+        let htmlIvas = '<select id="inputArticleIva">';
+        IVAS_LIST.forEach(iva => { htmlIvas += `<option value="${iva.title}">${iva.percentage}</option>`; });
+        htmlIvas += '</select>';
+
         if(datosEntidadConcreta && datosEntidadConcreta.res && datosEntidadConcreta.res[0] && datosEntidadConcreta.res[0].id > 0){
+            articleId    = datosEntidadConcreta.res[0].id;
             descriptionC = datosEntidadConcreta.res[0].description;
             ivaC         = datosEntidadConcreta.res[0].price;
-            valorIva     = datosEntidadConcreta.res[0].iva;
-            tipoIva      = datosEntidadConcreta.res[0].ivatype;
+            valorIva     = datosEntidadConcreta.res[0].iva;        
+            tipoIva      = datosEntidadConcreta.res[0].ivatype;    
+            let selectedType = '';
+            console.log(valorIva)
+            console.log(tipoIva)
+            htmlIvas = '<select id="inputArticleIva">';
+            IVAS_LIST.forEach(iva => { // && tipoIva != 'norm'
+                console.log(iva.title)
+                if(iva.title == valorIva && tipoIva == 'norm' ){ selectedType = 'selected'; }
+                if(iva.title == valorIva && tipoIva == 'exento' ){ selectedType = 'selected'; }
+                htmlIvas += `<option value="${iva.title}" ${selectedType}>${iva.percentage}</option>`;
+                selectedType = '';
+            });
+            htmlIvas += '</select>';
         }
         // alert(valorIva) aqui me falta guardar update este articulo y luego, y que se muestre el tipo adecuado
-        let htmlIvas = '<select id="inputArticleIva">';
-        let selectedType = '';
-        IVAS_LIST.forEach(iva => { // && tipoIva != 'norm'
-            if(iva.title == valorIva ){ selectedType = 'selected'; }
-            htmlIvas += `<option value="${iva.title}" ${selectedType}>${iva.percentage}</option>`;
-            selectedType = '';
-        });
-        htmlIvas += '</select>';
         currentHtmlEntity = `<div class="container-fluid">
                                 <div class="row">
                                     <div class="col-lg-6">
@@ -231,7 +235,7 @@ function addNewArticleNewCustomer(entity, datosEntidadConcreta){
                                         </div>
                                     </div>
                                 </div>
-                                <a href="#" class="btn btn-facebook btn-block" onclick="saveNewArticle(event)" id="idNewArticle"><i class="fas fa-save"></i> Guardar</a>
+                                <a href="#" class="btn btn-facebook btn-block" onclick="saveNewArticle(event, ${articleId})" id="idNewArticle"><i class="fas fa-save"></i> Guardar</a>
                             </div>`;
     }
     /* creating new CUSTOMER */

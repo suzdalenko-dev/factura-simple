@@ -16,8 +16,8 @@ function defaultController(action, entidad, id){
     });
 }
 
-defaultController(DEFAULT_ACTION, DEFAULT_ENTITY, 0);
-
+// defaultController(DEFAULT_ACTION, DEFAULT_ENTITY, 0);
+showFormInvoiceCreation()
 
 /* button en left menu */
 document.getElementById('facturaClick').addEventListener('click', () => {
@@ -51,9 +51,7 @@ document.getElementById('addCustomerClick').addEventListener('click', () => {
 });
 
 document.getElementById('addInvoiceClick').addEventListener('click', () => {
-    alert('añadir nueva factura')
-    // crearVistaListadoFacturas({'name':'factura', 'title': 'Crear Factura'}, );
-    // addNewArticleNewCustomer({'name':'factura', 'title': 'Crear Factura'}, null);
+    showFormInvoiceCreation();
 });
 
 
