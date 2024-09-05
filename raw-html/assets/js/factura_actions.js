@@ -1,5 +1,5 @@
 async function traerDatosClientArtFacturas(){
-    postRequest('default/get/cliente/0', new FormData()).then(listadoClientes => {
+    postRequest('default/get/cliente/0', new FormData()).then(listadoClientes => {  console.log(listadoClientes)
         if(listadoClientes.res.length == 0){
             alert('Para crear factura al menos tiene que tener 1 cliente creado previamente..');
         }
@@ -12,6 +12,14 @@ async function traerDatosClientArtFacturas(){
         }
         LISTADO_ARTICULOS_FACTURAS = [];
         LISTADO_ARTICULOS_FACTURAS = listadoArticles.res;
+    });
+    postRequest('default/get/empresa/0', new FormData()).then(empresaData => {
+        if(empresaData.res.length == 0){
+            alert('Para crear factura al menos tiene que tener 1 cliente creado previamente..');
+        }
+        EMPRESA_FACTURAS = {};
+        EMPRESA_FACTURAS = empresaData.res[0];
+        document.getElementById('precioManoObra').value = EMPRESA_FACTURAS.price;
     });
 }
 
@@ -90,7 +98,21 @@ function showFormInvoiceCreation(){
                                                 <div class="col-lg-1"><code>Importe</code></div>
                                                 <div class="col-lg-1"></div>
                                             </div>
-                                            <div id="divContrainerNewLines"></div>
+                                            <div id="divContrainerNewLines">
+                                                <div class="row mt-1" id="deleteDivNumber0" data-line_counter="0">
+                                                    <div class="col-lg-1"><input type="number" class="suzdal_none" id="idArt0"><input type="number" disabled="" id="numberArt0"></div>
+                                                    <div class="col-lg-5">
+                                                        <input type="text" id="descriptionArt0" oninput="handleInputDescription(0, event)">
+                                                        <div id="suggestionsArticles0" class="suggestions-list"></div>    
+                                                    </div>
+                                                    <div class="col-lg-1"><input type="number" id="cantidadArt0" value="1"></div>
+                                                    <div class="col-lg-1"><input type="number" id="precioArt0"></div>
+                                                    <div class="col-lg-1" id="ivaArt0"><select><option value="21"> 21 % </option><option value="10"> 10 % </option><option value="4"> 4 % </option><option value="0"> 0 % </option><option value="0EXENTO"> 0 EXENTO </option></select></div>
+                                                    <div class="col-lg-1"><input type="number" value="0" id="descuentoArt0"></div>
+                                                    <div class="col-lg-1"><input type="number" disabled="" id="totalArt0"></div>
+                                                    <div class="col-lg-1"><i class="fa fa-trash" aria-hidden="true" onclick="deleteThisDiv(0)"></i></div>
+                                                </div>
+                                            </div>
                                             <div class="row mt-4">
                                                 <div class="col-lg-1"><span class="simulate_link" onclick="idAddNewLine()"><i class="fa fa-plus" aria-hidden="true"></i> Linea</span></div>
                                             </div>
@@ -116,7 +138,6 @@ function showFormInvoiceCreation(){
                         </div>`;
 
     pageMainContent.innerHTML = htmlSkeleton;
-    setTimeout(() => { idAddNewLine(); }, 1000);
 }
 
 function invoiceCalculate(){

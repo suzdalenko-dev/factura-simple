@@ -1,7 +1,7 @@
 function checkCompanyData(dataCompany){
     if(dataCompany){
         let errorsCompany = '';                                                       
-        if(!dataCompany.id){ errorsCompany += 'ID empresa \n'; }
+        // if(!dataCompany.id){ errorsCompany += 'ID empresa \n'; }
         if(!dataCompany.razon){ errorsCompany += 'Razón o denominación social \n';  }
         if(!dataCompany.person_name) {errorsCompany += 'Nombre de la persona vacío \n';}
         if(!dataCompany.cif){ errorsCompany += 'CIF empresa \n'; }
