@@ -42,7 +42,7 @@ function crearTablaEntidadPrincipal(listData, entityData){
         }
         currentHtmlEntity = `<div class="container-fluid">
                                 <div class="card shadow mb-4">
-                                    <div class="card-header py-3">
+                                    <div class="card-header py-1">
                                         <h6 class="m-0 font-weight-bold text-primary">${htmlTotalArticles}</h6>
                                     </div>
                                     <div class="card-body">
@@ -78,7 +78,7 @@ function crearTablaEntidadPrincipal(listData, entityData){
         }
         currentHtmlEntity = `<div class="container-fluid">
                                 <div class="card shadow mb-4">
-                                    <div class="card-header py-3">
+                                    <div class="card-header py-1">
                                         <h6 class="m-0 font-weight-bold text-primary">${htmlTotalClientes}</h6>
                                     </div>
                                     <div class="card-body">
@@ -115,49 +115,49 @@ function crearTablaEntidadPrincipal(listData, entityData){
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="card shadow mb-4">
-                                            <div class="card-header py-3">
+                                            <div class="card-header py-1">
                                                 <h6 class="m-0 font-weight-bold text-primary">Denominación</h6>
                                             </div>
                                             <div class="card-body">
                                                 <div class="mt-0 mb-1 "><code>Razón o denominación social</code></div>
                                                 <input type="text" value="${companyName}" id="inputCompanyName">
-                                                <div class="mt-3 mb-1 "><code>Nombre y apellidos persona</code></div>
+                                                <div class="mt-2 mb-1 "><code>Nombre y apellidos persona</code></div>
                                                 <input type="text" value="${person_name}" id="inputPersonName">
-                                                <div class="mt-3 mb-1 "><code>Email cara cliente</code></div>
+                                                <div class="mt-2 mb-1 "><code>Email cara cliente</code></div>
                                                 <input type="text" value="${emailCustom}" id="inpuEmailCustom">
-                                                <div class="mt-3 mb-1 "><code>CIF-NIF</code></div>
+                                                <div class="mt-2 mb-1 "><code>CIF-NIF</code></div>
                                                 <input type="text" value="${companyCif}" disabled>
-                                                <div class="mt-3 mb-1 "><code>Email login</code></div>
+                                                <div class="mt-2 mb-1 "><code>Email login</code></div>
                                                 <input type="text" value="${companyEmail}" disabled>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="card shadow mb-4">
-                                            <div class="card-header py-3">
+                                            <div class="card-header py-1">
                                                 <h6 class="m-0 font-weight-bold text-primary">Dirección</h6>
                                             </div>
                                             <div class="card-body">
                                                 <div class="mt-0 mb-1 "><code>País</code></div>
                                                 <input type="text" id="inputCountry" value="${paisName}">
-                                                <div class="mt-3 mb-1 "><code>Provincia</code></div>
+                                                <div class="mt-2 mb-1 "><code>Provincia</code></div>
                                                 <input type="text" id="inputProvincy" value="${provinceName}">
-                                                <div class="mt-3 mb-1 "><code>Código postal</code></div>
+                                                <div class="mt-2 mb-1 "><code>Código postal</code></div>
                                                 <input type="text" id="inputZipCode" value="${zipcodeData}">
-                                                <div class="mt-3 mb-1 "><code>Cuidad</code></div>
+                                                <div class="mt-2 mb-1 "><code>Cuidad</code></div>
                                                 <input type="text" id="inputCity" value="${cityData}">
-                                                <div class="mt-3 mb-1 "><code>Dirección</code></div>
+                                                <div class="mt-2 mb-1 "><code>Dirección</code></div>
                                                 <input type="text" id="inputAddress" value="${addressData}">
-                                                <div class="mt-3 mb-1 "><code>Teléfono principal</code></div>
+                                                <div class="mt-2 mb-1 "><code>Teléfono principal</code></div>
                                                 <input type="text" id="inputPhone1" value="${phone1}">
-                                                <div class="mt-3 mb-1 "><code>Teléfono</code></div>
+                                                <div class="mt-2 mb-1 "><code>Teléfono</code></div>
                                                 <input type="text" id="inputPhone2" value="${phone2}">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="card shadow mb-4">
-                                            <div class="card-header py-3">
+                                            <div class="card-header py-1">
                                                 <h6 class="m-0 font-weight-bold text-primary">Precío</h6>
                                             </div>
                                             <div class="card-body">
@@ -212,7 +212,7 @@ function addNewArticleNewCustomer(entity, datosEntidadConcreta){
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="card shadow mb-4">
-                                            <div class="card-header py-3">
+                                            <div class="card-header py-1">
                                                 <h6 class="m-0 font-weight-bold text-primary">Descripción artículo</h6>
                                             </div>
                                             <div class="card-body">
@@ -223,13 +223,13 @@ function addNewArticleNewCustomer(entity, datosEntidadConcreta){
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="card shadow mb-4">
-                                            <div class="card-header py-3">
+                                            <div class="card-header py-1">
                                                 <h6 class="m-0 font-weight-bold text-primary">Datos de facturación</h6>
                                             </div>
                                             <div class="card-body">
                                                 <div class="mt-0 mb-1 "><code>Precío €/unidad</code></div>
                                                 <input type="number" value="${ivaC}" id="inputArticlePrice">
-                                                <div class="mt-3 mb-1 "><code>Porcentaje de IVA</code></div>
+                                                <div class="mt-2 mb-1 "><code>Porcentaje de IVA</code></div>
                                                 ${htmlIvas}
                                             </div>
                                         </div>
@@ -258,47 +258,47 @@ function addNewArticleNewCustomer(entity, datosEntidadConcreta){
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="card shadow mb-4">
-                                            <div class="card-header py-3">
+                                            <div class="card-header py-1">
                                                 <h6 class="m-0 font-weight-bold text-primary">Denominación</h6>
                                             </div>
                                             <div class="card-body">
                                                 <div class="mt-0 mb-1 "><code>Codígo cliente</code></div>
                                                 <input type="text" value="${clientcodeB}" disabled id="inputCodigoCLiente">
-                                                <div class="mt-3 mb-1 "><code>CIF NIF</code></div>
+                                                <div class="mt-2 mb-1 "><code>CIF NIF</code></div>
                                                 <input type="text" value="${cifNifB}" id="inputCifCliente">
-                                                <div class="mt-3 mb-1 "><code>Razón o denominación social</code></div>
+                                                <div class="mt-2 mb-1 "><code>Razón o denominación social</code></div>
                                                 <input type="text" value="${razonB}" id="inputRazonCliente">
-                                                <div class="mt-3 mb-1 "><code>Nombre y apellidos persona</code></div>
+                                                <div class="mt-2 mb-1 "><code>Nombre y apellidos persona</code></div>
                                                 <input type="text" value="${person_nameB}" id="inputPersonName">
-                                                <div class="mt-3 mb-1 "><code>Email</code></div>
+                                                <div class="mt-2 mb-1 "><code>Email</code></div>
                                                 <input type="text" value="${emailcustomerB}" id="inputEmailCliente">
-                                                <div class="mt-3 mb-1 "><code>Teléfono</code></div>
+                                                <div class="mt-2 mb-1 "><code>Teléfono</code></div>
                                                 <input type="text" id="inputPhoneCliente" value="${phoneB}">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="card shadow mb-4">
-                                            <div class="card-header py-3">
+                                            <div class="card-header py-1">
                                                 <h6 class="m-0 font-weight-bold text-primary">Dirección</h6>
                                             </div>
                                             <div class="card-body">
                                                 <div class="mt-0 mb-1 "><code>País</code></div>
                                                 <input type="text" id="inputCountryCliente" value="${countryB}">
-                                                <div class="mt-3 mb-1 "><code>Provincia</code></div>
+                                                <div class="mt-2 mb-1 "><code>Provincia</code></div>
                                                 <input type="text" id="inputProvincyCliente" value="${provinceB}">
-                                                <div class="mt-3 mb-1 "><code>Código postal</code></div>
+                                                <div class="mt-2 mb-1 "><code>Código postal</code></div>
                                                 <input type="text" id="inputZipCodeCliente" value="${zipcodeB}">
-                                                <div class="mt-3 mb-1 "><code>Cuidad</code></div>
+                                                <div class="mt-2 mb-1 "><code>Cuidad</code></div>
                                                 <input type="text" id="inputCityCliente" value="${cityB}">
-                                                <div class="mt-3 mb-1 "><code>Dirección</code></div>
+                                                <div class="mt-2 mb-1 "><code>Dirección</code></div>
                                                 <input type="text" id="inputAddressCliente" value="${addressB}">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="card shadow mb-4">
-                                            <div class="card-header py-3">
+                                            <div class="card-header py-1">
                                                 <h6 class="m-0 font-weight-bold text-primary">Vehículos 0</h6>
                                             </div>
                                             <div class="card-body">

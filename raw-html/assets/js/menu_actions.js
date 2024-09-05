@@ -61,7 +61,3 @@ document.getElementById('searchInputId').addEventListener('input', () => {
     alert('En desarrollo..');
     document.getElementById('searchInputId').value = '';
 });
-
-document.getElementById('buttonIdSearch').addEventListener('click', () => {
-    alert('En desarrollo..');
-});
