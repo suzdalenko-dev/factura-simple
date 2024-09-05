@@ -47,7 +47,6 @@ async function postRequest(url, formData){
     }
 }
 
-
 function formatDateInvoice() {
     let miDate = new Date();
     const day = String(miDate.getDate()).padStart(2, '0'); 
@@ -67,7 +66,6 @@ function globalCurrentDate(){
     return `${hours}:${minutes}:${seconds} ${day}/${month}/${year}`;
 }
 
-
 let IVAS_LIST = [
     {'title': 21, 'percentage': ' 21 % '},
     {'title': 10, 'percentage': ' 10 % '},
@@ -75,7 +73,6 @@ let IVAS_LIST = [
     {'title': 0, 'percentage': ' 0 % '},
     {'title': '0EXENTO', 'percentage': ' 0 EXENTO '},
 ];
-
 
 let INVOICES_LIST = [
     {title: 'Factura Ordinaria', letter: 'O'},

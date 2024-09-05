@@ -56,8 +56,10 @@ document.getElementById('addInvoiceClick').addEventListener('click', () => {
 
 
 
-/* search input */
+/* search input 
 document.getElementById('searchInputId').addEventListener('input', () => {
     alert('En desarrollo..');
     document.getElementById('searchInputId').value = '';
 });
+
+*/

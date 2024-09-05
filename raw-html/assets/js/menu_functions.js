@@ -199,7 +199,6 @@ function addNewArticleNewCustomer(entity, datosEntidadConcreta){
             console.log(tipoIva)
             htmlIvas = '<select id="inputArticleIva">';
             IVAS_LIST.forEach(iva => { // && tipoIva != 'norm'
-                console.log(iva.title)
                 if(iva.title == valorIva && tipoIva == 'norm' ){ selectedType = 'selected'; }
                 if(iva.title == valorIva && tipoIva == 'exento' ){ selectedType = 'selected'; }
                 htmlIvas += `<option value="${iva.title}" ${selectedType}>${iva.percentage}</option>`;
