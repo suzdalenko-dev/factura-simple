@@ -1,5 +1,5 @@
 async function traerDatosClientArtFacturas(){
-    postRequest('default/get/cliente/0', new FormData()).then(listadoClientes => {  console.log(listadoClientes)
+    postRequest('default/get/cliente/0', new FormData()).then(listadoClientes => {
         if(listadoClientes.res.length == 0){
             alert('Para crear factura al menos tiene que tener 1 cliente creado previamente..');
         }
@@ -105,10 +105,10 @@ function showFormInvoiceCreation(){
                                                         <input type="text" id="descriptionArt0" oninput="handleInputDescription(0, event)">
                                                         <div id="suggestionsArticles0" class="suggestions-list"></div>    
                                                     </div>
-                                                    <div class="col-lg-1"><input type="number" id="cantidadArt0" value="1"></div>
-                                                    <div class="col-lg-1"><input type="number" id="precioArt0"></div>
-                                                    <div class="col-lg-1" id="ivaArt0"><select><option value="21"> 21 % </option><option value="10"> 10 % </option><option value="4"> 4 % </option><option value="0"> 0 % </option><option value="0EXENTO"> 0 EXENTO </option></select></div>
-                                                    <div class="col-lg-1"><input type="number" value="0" id="descuentoArt0"></div>
+                                                    <div class="col-lg-1"><input type="number" id="cantidadArt0" value="1" oninput="invoiceCalculate()"></div>
+                                                    <div class="col-lg-1"><input type="number" id="precioArt0" oninput="invoiceCalculate()"></div>
+                                                    <div class="col-lg-1" id="ivaArt0"><select oninput="invoiceCalculate()"><option value="21"> 21 % </option><option value="10"> 10 % </option><option value="4"> 4 % </option><option value="0"> 0 % </option><option value="0EXENTO"> 0 EXENTO </option></select></div>
+                                                    <div class="col-lg-1"><input type="number" value="0" id="descuentoArt0" oninput="invoiceCalculate()"></div>
                                                     <div class="col-lg-1"><input type="number" disabled="" id="totalArt0"></div>
                                                     <div class="col-lg-1"><i class="fa fa-trash" aria-hidden="true" onclick="deleteThisDiv(0)"></i></div>
                                                 </div>
@@ -145,12 +145,12 @@ function invoiceCalculate(){
         let divContrainerNewLines = document.getElementById('divContrainerNewLines');
         let childDivs = divContrainerNewLines.children;
         Array.from(childDivs).forEach((childDiv, index) => {
-            let numeroLinea = childDiv.dataset.line_counter;
+            let numeroLinea = childDiv.dataset.line_counter;        console.log(numeroLinea)
 
             
            
         
-        }); 
+        });
     }, 1000);
 }
 
@@ -169,10 +169,10 @@ function idAddNewLine(){
                                 <input type="text" id="descriptionArt${LINE_COUNTER}" oninput="handleInputDescription(${LINE_COUNTER}, event)">
                                 <div id="suggestionsArticles${LINE_COUNTER}" class="suggestions-list"></div>    
                             </div>
-                            <div class="col-lg-1"><input type="number" id="cantidadArt${LINE_COUNTER}" value="1"></div>
-                            <div class="col-lg-1"><input type="number" id="precioArt${LINE_COUNTER}"></div>
-                            <div class="col-lg-1" id="ivaArt${LINE_COUNTER}"><select><option value="21"> 21 % </option><option value="10"> 10 % </option><option value="4"> 4 % </option><option value="0"> 0 % </option><option value="0EXENTO"> 0 EXENTO </option></select></div>
-                            <div class="col-lg-1"><input type="number" value="0" id="descuentoArt${LINE_COUNTER}"></div>
+                            <div class="col-lg-1"><input type="number" id="cantidadArt${LINE_COUNTER}" value="1" oninput="invoiceCalculate()"></div>
+                            <div class="col-lg-1"><input type="number" id="precioArt${LINE_COUNTER}" oninput="invoiceCalculate()"></div>
+                            <div class="col-lg-1" id="ivaArt${LINE_COUNTER}"><select oninput="invoiceCalculate()"><option value="21"> 21 % </option><option value="10"> 10 % </option><option value="4"> 4 % </option><option value="0"> 0 % </option><option value="0EXENTO"> 0 EXENTO </option></select></div>
+                            <div class="col-lg-1"><input type="number" value="0" id="descuentoArt${LINE_COUNTER}" oninput="invoiceCalculate()"></div>
                             <div class="col-lg-1"><input type="number" disabled id="totalArt${LINE_COUNTER}"></div>
                             <div class="col-lg-1"><i class="fa fa-trash" aria-hidden="true" onclick="deleteThisDiv(${LINE_COUNTER})"></i></div>
                         </div>`;
@@ -183,7 +183,7 @@ function idAddNewLine(){
 
 function returnIvaType(num, ivatype, iva){
     let selectedType = '';
-    let htmlIva = `<select id="inputArtIva${num}">`;
+    let htmlIva = `<select id="inputArtIva${num}" oninput="invoiceCalculate()">`;
     IVAS_LIST.forEach(item => {
         if(ivatype == 'norm' && item.title == iva ){ selectedType = 'selected'; }
         if(ivatype == 'exento' && item.title == '0EXENTO') { selectedType = 'selected'; }
@@ -210,12 +210,13 @@ function handleInputDescription(num, event){
                     suggestionItem.classList.add('suggestion_item');
                     suggestionItem.textContent = option.description;
                     suggestionItem.addEventListener('click', function() {
-                        document.getElementById('idArt'+num).value      = option.id;
-                        document.getElementById('numberArt'+num).value  = option.artcode;
-                        document.getElementById('precioArt'+num).value  = option.price;
-                        document.getElementById('ivaArt'+num).innerHTML = returnIvaType(num, option.ivatype, option.iva);
-                        suggestionsArticles.innerHTML                   = '';
-                        suggestionsArticles.style.display               = 'none';
+                        document.getElementById('idArt'+num).value          = option.id;
+                        document.getElementById('numberArt'+num).value      = option.artcode;
+                        document.getElementById('descriptionArt'+num).value = option.description;
+                        document.getElementById('precioArt'+num).value      = option.price;
+                        document.getElementById('ivaArt'+num).innerHTML     = returnIvaType(num, option.ivatype, option.iva);
+                        suggestionsArticles.innerHTML                       = '';
+                        suggestionsArticles.style.display                   = 'none';
                         invoiceCalculate();
                     });
                     suggestionsArticles.appendChild(suggestionItem);
@@ -226,6 +227,7 @@ function handleInputDescription(num, event){
             };
         }
     }
+    invoiceCalculate();
 }
 
 function handleInputClient(event){
