@@ -8,3 +8,4 @@ let DEFAULT_ENTITY = {name:'factura', title:'Facturas'};
 let pageTitle       = document.getElementById('pageTitle');
 let pageMainContent = document.getElementById('pageMainContent');
 
+let LINE_COUNTER    = 0;

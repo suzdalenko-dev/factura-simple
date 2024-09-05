@@ -2,6 +2,13 @@ input{
     width: 100%;
     color:#000c63
 }
+.simulate_link{
+    color: #040471;
+}
+.simulate_link:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
 .grey_color{
     color: rgb(193, 192, 255);
 }
@@ -19,7 +26,7 @@ input{
     font-size: 4rem;
 }
 .topbar {
-    height: 2.375rem;
+    height: 2.0rem;
 }
 .suzdal_none{
     display: none;

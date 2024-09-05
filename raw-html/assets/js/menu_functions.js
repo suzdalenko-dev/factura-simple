@@ -167,7 +167,7 @@ function crearTablaEntidadPrincipal(listData, entityData){
                                         </div>
                                     </div>
                                 </div>
-                                <a href="#" class="btn btn-facebook btn-block" onclick="saveDataCompany(event)" id="idSaveDataCompany"><i class="fas fa-save"></i> Guardar</a>
+                                <a href="#" class="btn btn-facebook" onclick="saveDataCompany(event)" id="idSaveDataCompany"><i class="fas fa-save"></i> Guardar</a>
                             </div>`;
     }
     pageMainContent.innerHTML = currentHtmlEntity;
@@ -235,7 +235,7 @@ function addNewArticleNewCustomer(entity, datosEntidadConcreta){
                                         </div>
                                     </div>
                                 </div>
-                                <a href="#" class="btn btn-facebook btn-block" onclick="saveNewArticle(event, ${articleId})" id="idNewArticle"><i class="fas fa-save"></i> Guardar</a>
+                                <a href="#" class="btn btn-facebook" onclick="saveNewArticle(event, ${articleId})" id="idNewArticle"><i class="fas fa-save"></i> Guardar</a>
                             </div>`;
     }
     /* creating new CUSTOMER */
@@ -307,7 +307,7 @@ function addNewArticleNewCustomer(entity, datosEntidadConcreta){
                                         </div>
                                     </div>
                                 </div>
-                                <a href="#" class="btn btn-facebook btn-block" onclick="saveNewCustomer(event, ${CLIENT_ID})" id="idSaveNewCustomer"><i class="fas fa-save"></i> Guardar</a>
+                                <a href="#" class="btn btn-facebook" onclick="saveNewCustomer(event, ${CLIENT_ID})" id="idSaveNewCustomer"><i class="fas fa-save"></i> Guardar</a>
                             </div>`;
     }
     pageMainContent.innerHTML = currentHtmlEntity;

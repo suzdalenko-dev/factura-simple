@@ -12,8 +12,9 @@ async function traerDatosClienteFacturas(){
 }
 
 function showFormInvoiceCreation(){
+    LINE_COUNTER = 0;
     /* traer listado de clientes */
-    traerDatosClienteFacturas()
+    traerDatosClienteFacturas();
 
     pageTitle.innerText = 'Crear Factura'
     let htmlTipeInvoice = '<select id="selectTypeInvoice">';
@@ -60,10 +61,8 @@ function showFormInvoiceCreation(){
                                         <div class="card-body">
                                             <div class="mt-0 mb-1 "><code>Matrícula</code></div>
                                             <input type="text" id="inputVehicleMatricula" value="">
-                                            <div class="mt-2 mb-1 "><code>Marca</code></div>
+                                            <div class="mt-2 mb-1 "><code>Marca/Modelo</code></div>
                                             <input type="text" id="inputVehicleMarca" value="">
-                                            <div class="mt-2 mb-1 "><code>Modelo</code></div>
-                                            <input type="text" id="inputVehicleModelo" value="">
                                             <div class="mt-2 mb-1 "><code>Kilómetros</code></div>
                                             <input type="text" id="inputVehicleKm" value="">
                                         </div>
@@ -83,50 +82,70 @@ function showFormInvoiceCreation(){
                                                 <div class="col-lg-1"><code>Cantidad</code></div>
                                                 <div class="col-lg-1"><code>Precio</code></div>
                                                 <div class="col-lg-1"><code>IVA</code></div>
-                                                <div class="col-lg-1"><code>Dto.</code></div>
+                                                <div class="col-lg-1"><code>% Dto. </code></div>
                                                 <div class="col-lg-1"><code>Importe</code></div>
                                                 <div class="col-lg-1"></div>
                                             </div>
                                             <div class="row">    
-                                                <div class="col-lg-1"><input type="number" class="suzdal_none"><input type="number" disabled></div>
-                                                <div class="col-lg-5"><input type="text"></div>
-                                                <div class="col-lg-1"><input type="number"></div>
-                                                <div class="col-lg-1"><input type="number"></div>
-                                                <div class="col-lg-1"><code>IVA</code></div>
-                                                <div class="col-lg-1"><input type="number" value="0"></div>
-                                                <div class="col-lg-1"><input type="number" disabled></div>
+                                                <div class="col-lg-1"><input type="number" class="suzdal_none" id="idArt0"><input type="number" disabled id="numberArt0"></div>
+                                                <div class="col-lg-5"><input type="text" id="descriptionArt0"></div>
+                                                <div class="col-lg-1"><input type="number" id="cantidadArt0"></div>
+                                                <div class="col-lg-1"><input type="number" id="precioArt0"></div>
+                                                <div class="col-lg-1"><select id="ivaArt0"></select></div>
+                                                <div class="col-lg-1"><input type="number" value="0" id="descuentoArt0"></div>
+                                                <div class="col-lg-1"><input type="number" disabled id="totalArt0"></div>
                                                 <div class="col-lg-1"></div>
                                             </div>
                                             <div id="divContrainerNewLines"></div>
                                             <div class="row mt-4">
-                                                <div class="col-lg-1"><a href="#" onclick="idAddNewLine()"><i class="fa fa-plus" aria-hidden="true"></i> Añadir linea</a></div>
+                                                <div class="col-lg-1"><span class="simulate_link" onclick="idAddNewLine()"><i class="fa fa-plus" aria-hidden="true"></i> Añadir linea</span></div>
                                                 <div class="col-lg-5"></div>
                                             </div>
-                                            <div class="row"><div class="col-lg-10"></div><div class="col-lg-2"><code>Total: </code></div></div> 
+                                            <div class="row"><div class="col-lg-10"></div><div class="col-lg-2"><code>Total: 0</code></div></div> 
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <a href="#" class="btn btn-facebook btn-block" onclick="clickCreateInvoice()" id="idCreateInvoice"><i class="fas fa-save" aria-hidden="true"></i> Crear Factura</a>
+                            <a href="#" class="btn btn-facebook" onclick="clickCreateInvoice()" id="idCreateInvoice"><i class="fas fa-save" aria-hidden="true"></i> Crear Factura</a>
                         </div>`;
 
     pageMainContent.innerHTML = htmlSkeleton;
 }
 
+function deleteThisDiv(x){
+    let divDelete = document.getElementById('deleteDivNumber'+x);
+    if(divDelete) divDelete.remove();
+}
+/*
+<script>
+        // Obtener el contenedor con ID 'mDiv'
+        const container = document.getElementById('mDiv');
+
+        // Crear un nuevo elemento
+        const newElement = document.createElement('span');
+        newElement.textContent = 'Nuevo hijo';
+
+        // Añadir el nuevo elemento al final de los hijos existentes
+        container.appendChild(newElement);
+    </script>
+*/
 function idAddNewLine(){
+    LINE_COUNTER++;
     let divContrainerNewLines = document.getElementById('divContrainerNewLines');
-    let contenidoHTML = divContrainerNewLines.innerHTML;
-        contenidoHTML += `<div class="row mt-1">
-                            <div class="col-lg-1"<input type="number" class="suzdal_none"><input type="number" disabled></div>
-                            <div class="col-lg-5"><input type="text"></div>
-                            <div class="col-lg-1"><input type="number"></div>
-                            <div class="col-lg-1"><input type="number"></div>
-                            <div class="col-lg-1"><code>IVA</code></div>
-                            <div class="col-lg-1"><input type="number" value="0"></div>
-                            <div class="col-lg-1"><input type="number" disabled></div>
-                            <div class="col-lg-1"><i class="fa fa-trash" aria-hidden="true"></i></div>
+    let tempDiv = document.createElement('div');
+    let contenidoHTML = `<div class="row mt-1" id="deleteDivNumber${LINE_COUNTER}" data-line_counter="${LINE_COUNTER}">
+                            <div class="col-lg-1"><input type="number" class="suzdal_none" id="idArt${LINE_COUNTER}"><input type="number" disabled id="numberArt${LINE_COUNTER}"></div>
+                            <div class="col-lg-5"><input type="text" id="descriptionArt${LINE_COUNTER}"></div>
+                            <div class="col-lg-1"><input type="number" id="cantidadArt${LINE_COUNTER}"></div>
+                            <div class="col-lg-1"><input type="number" id="precioArt${LINE_COUNTER}"></div>
+                            <div class="col-lg-1"><select id="ivaArt${LINE_COUNTER}"></select></div>
+                            <div class="col-lg-1"><input type="number" value="0" id="descuentoArt${LINE_COUNTER}"></div>
+                            <div class="col-lg-1"><input type="number" disabled id="totalArt${LINE_COUNTER}"></div>
+                            <div class="col-lg-1"><i class="fa fa-trash" aria-hidden="true" onclick="deleteThisDiv(${LINE_COUNTER})"></i></div>
                         </div>`;
-    divContrainerNewLines.innerHTML = contenidoHTML;
+    tempDiv.innerHTML = contenidoHTML;
+    let newElement = tempDiv.firstElementChild;
+    divContrainerNewLines.appendChild(newElement);
 };
 
 function handleInputClient(event){
@@ -163,5 +182,13 @@ function handleInputClient(event){
 }
 
 function clickCreateInvoice(){
-
+    let divContrainerNewLines = document.getElementById('divContrainerNewLines');
+    let childDivs = divContrainerNewLines.children;
+    Array.from(childDivs).forEach((childDiv, index) => {
+        let  dataValue = childDiv.dataset.line_counter;
+        
+        console.log('line_counter='+dataValue);
+        console.log(child, index);
+    
+    }); 
 }
