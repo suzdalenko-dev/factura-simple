@@ -93,8 +93,8 @@ function showFormInvoiceCreation(){
                                                 <div class="col-lg-5"><code>Descripción Art.</code></div>
                                                 <div class="col-lg-1"><code>Cantidad</code></div>
                                                 <div class="col-lg-1"><code>Precio</code></div>
-                                                <div class="col-lg-1"><code>IVA</code></div>
                                                 <div class="col-lg-1"><code>% Dto. </code></div>
+                                                <div class="col-lg-1"><code>IVA</code></div>
                                                 <div class="col-lg-1"><code>Importe</code></div>
                                                 <div class="col-lg-1"></div>
                                             </div>
@@ -107,8 +107,8 @@ function showFormInvoiceCreation(){
                                                     </div>
                                                     <div class="col-lg-1"><input type="number" id="cantidadArt0" value="1" oninput="invoiceCalculate()"></div>
                                                     <div class="col-lg-1"><input type="number" id="precioArt0" oninput="invoiceCalculate()"></div>
-                                                    <div class="col-lg-1" id="ivaArt0"><select oninput="invoiceCalculate()"><option value="21"> 21 % </option><option value="10"> 10 % </option><option value="4"> 4 % </option><option value="0"> 0 % </option><option value="0EXENTO"> 0 EXENTO </option></select></div>
                                                     <div class="col-lg-1"><input type="number" value="0" id="descuentoArt0" oninput="invoiceCalculate()"></div>
+                                                    <div class="col-lg-1" id="ivaArt0"><select oninput="invoiceCalculate()" id="selectIva0"><option value="21"> 21 % </option><option value="10"> 10 % </option><option value="4"> 4 % </option><option value="0"> 0 % </option><option value="0EXENTO"> 0 EXENTO </option></select></div>
                                                     <div class="col-lg-1"><input type="number" disabled="" id="totalArt0"></div>
                                                     <div class="col-lg-1"><i class="fa fa-trash" aria-hidden="true" onclick="deleteThisDiv(0)"></i></div>
                                                 </div>
@@ -119,17 +119,17 @@ function showFormInvoiceCreation(){
                                             <div class="row mt-1">
                                                 <div class="col-lg-1"></div>
                                                 <div class="col-lg-5"><input type="text" value="Mano de obra" disabled></div>
-                                                <div class="col-lg-1"><input type="number" id="cantidadManoObra" value="1"></div>
-                                                <div class="col-lg-1"><input type="number" id="precioManoObra"></div>
-                                                <div class="col-lg-1"><select id="ivaManoObra"><option value="21"> 21 % </option><option value="10"> 10 % </option><option value="4"> 4 % </option><option value="0"> 0 % </option><option value="0EXENTO"> 0 EXENTO </option></select></div>
-                                                <div class="col-lg-1"><input type="number" value="0" id="descuentoManoObra"></div>
+                                                <div class="col-lg-1"><input type="number" id="cantidadManoObra" value="1" oninput="invoiceCalculate()"></div>
+                                                <div class="col-lg-1"><input type="number" id="precioManoObra" oninput="invoiceCalculate()"></div>
+                                                <div class="col-lg-1"><input type="number" value="0" id="descuentoManoObra" oninput="invoiceCalculate()"></div>
+                                                <div class="col-lg-1"><select id="ivaManoObra" oninput="invoiceCalculate()"><option value="21"> 21 % </option><option value="10"> 10 % </option><option value="4"> 4 % </option><option value="0"> 0 % </option><option value="0EXENTO"> 0 EXENTO </option></select></div>
                                                 <div class="col-lg-1"><input type="number" disabled id="totalManoObra"></div>
                                                 <div class="col-lg-1"></div>
                                             </div>
                                             <br>
-                                            <div class="row mb-1"><div class="col-lg-10"></div><div class="col-lg-2"><code>Subtotal: 0</code></div></div>
-                                            <div class="row mb-1"><div class="col-lg-10"></div><div class="col-lg-2"><code>IVA: 0</code></div></div> 
-                                            <div class="row mb-1"><div class="col-lg-10"></div><div class="col-lg-2"><code>Total: 0</code></div></div> 
+                                            <div class="row mb-1"><div class="col-lg-10"></div><div class="col-lg-2"><code>Subtotal: <span id="idSubTotal">0</span> €</code></div></div>
+                                            <div class="row mb-1"><div class="col-lg-10"></div><div class="col-lg-2"><code>IVA: <span id="idIvaTotal">0</span> €</code></div></div> 
+                                            <div class="row mb-1"><div class="col-lg-10"></div><div class="col-lg-2"><code>Total: <span id="idTotalFactura">0</span> €</code></div></div> 
                                         </div>
                                     </div>
                                 </div>
@@ -139,24 +139,57 @@ function showFormInvoiceCreation(){
 
     pageMainContent.innerHTML = htmlSkeleton;
 }
+/*
 
+Concepto	        Precio	 IVA (%)  ImporteIVA	Total
+Filtro de aceite	50 €     21%	  10.50 €	    60.50 €
+Mano de obra	    100 €	 21%	  21.00 €	    121.00 €
+Servicio adicional	200 €	 10%	  20.00 €	    220.00 €
+Total				                                401.50 €
+*/
 function invoiceCalculate(){
-    setTimeout(() => {
-        let divContrainerNewLines = document.getElementById('divContrainerNewLines');
-        let childDivs = divContrainerNewLines.children;
-        Array.from(childDivs).forEach((childDiv, index) => {
-            let numeroLinea = childDiv.dataset.line_counter;        console.log(numeroLinea)
+    let importeSubtotal = 0;
+    let importeIvas     = 0;
+   
+    let divContrainerNewLines = document.getElementById('divContrainerNewLines');
+    let childDivs = divContrainerNewLines.children;
+    Array.from(childDivs).forEach((childDiv, index) => {
+        let numLine = childDiv.dataset.line_counter;                
+        let cantidad1  = document.getElementById('cantidadArt'+numLine).value.trim();
+        let precio1    = document.getElementById('precioArt'+numLine).value.trim(); 
+        let descPorc   = document.getElementById('descuentoArt'+numLine).value.trim();
+        let imp1Bruto  = cantidad1 * precio1;
+        let desc1Valor = descPorc / 100 * imp1Bruto;
+        let importe1   = imp1Bruto - desc1Valor;
+            importeSubtotal += importe1;
+        document.getElementById('totalArt'+numLine).value = parseFloat(importe1).toFixed(2);
+        let ivaPorcent = document.getElementById('selectIva'+numLine).value.trim() == '0EXENTO' ? 0 :  document.getElementById('selectIva'+numLine).value.trim();
+        let ivaLinea1 = ivaPorcent / 100 * importe1;
+            importeIvas += ivaLinea1;
+    });
+    let canridadManoObra = document.getElementById('cantidadManoObra').value.trim();
+    let precioManoObra   = document.getElementById('precioManoObra').value.trim();
+    let ivaPorcentManoOb = document.getElementById('ivaManoObra').value.trim() == '0EXENTO' ? 0 :  document.getElementById('ivaManoObra').value.trim();
+    let porcentajeDesMOb = document.getElementById('descuentoManoObra').value.trim();
+                    
+    /* linea mano de obra */
+    let importeBrutoManoObra = canridadManoObra * precioManoObra;                                           
+    let descManoObr          = porcentajeDesMOb / 100 * importeBrutoManoObra;                                     
+    let importeManoObra      = importeBrutoManoObra - descManoObr;                                              
+    document.getElementById('totalManoObra').value = parseFloat(importeManoObra).toFixed(2);
 
-            
-           
-        
-        });
-    }, 1000);
+    document.getElementById('idSubTotal').innerText = parseFloat(importeManoObra + importeSubtotal).toFixed(2);           
+    let valorIvaManoObra = ivaPorcentManoOb / 100 * importeManoObra                                   
+    document.getElementById('idIvaTotal').innerText = parseFloat(valorIvaManoObra + importeIvas).toFixed(2);             
+    let valorTotalFactura = valorIvaManoObra + importeManoObra + importeSubtotal + importeIvas;                                              
+    document.getElementById('idTotalFactura').innerText =  parseFloat(valorTotalFactura).toFixed(2);         
+
 }
 
 function deleteThisDiv(x){
     let divDelete = document.getElementById('deleteDivNumber'+x);
     if(divDelete) divDelete.remove();
+    invoiceCalculate();
 }
 
 function idAddNewLine(){
@@ -171,8 +204,8 @@ function idAddNewLine(){
                             </div>
                             <div class="col-lg-1"><input type="number" id="cantidadArt${LINE_COUNTER}" value="1" oninput="invoiceCalculate()"></div>
                             <div class="col-lg-1"><input type="number" id="precioArt${LINE_COUNTER}" oninput="invoiceCalculate()"></div>
-                            <div class="col-lg-1" id="ivaArt${LINE_COUNTER}"><select oninput="invoiceCalculate()"><option value="21"> 21 % </option><option value="10"> 10 % </option><option value="4"> 4 % </option><option value="0"> 0 % </option><option value="0EXENTO"> 0 EXENTO </option></select></div>
                             <div class="col-lg-1"><input type="number" value="0" id="descuentoArt${LINE_COUNTER}" oninput="invoiceCalculate()"></div>
+                            <div class="col-lg-1" id="ivaArt${LINE_COUNTER}"><select oninput="invoiceCalculate()" id="selectIva${LINE_COUNTER}"><option value="21"> 21 % </option><option value="10"> 10 % </option><option value="4"> 4 % </option><option value="0"> 0 % </option><option value="0EXENTO"> 0 EXENTO </option></select></div>
                             <div class="col-lg-1"><input type="number" disabled id="totalArt${LINE_COUNTER}"></div>
                             <div class="col-lg-1"><i class="fa fa-trash" aria-hidden="true" onclick="deleteThisDiv(${LINE_COUNTER})"></i></div>
                         </div>`;
@@ -183,7 +216,7 @@ function idAddNewLine(){
 
 function returnIvaType(num, ivatype, iva){
     let selectedType = '';
-    let htmlIva = `<select id="inputArtIva${num}" oninput="invoiceCalculate()">`;
+    let htmlIva = `<select id="selectIva${num}" oninput="invoiceCalculate()">`;
     IVAS_LIST.forEach(item => {
         if(ivatype == 'norm' && item.title == iva ){ selectedType = 'selected'; }
         if(ivatype == 'exento' && item.title == '0EXENTO') { selectedType = 'selected'; }
