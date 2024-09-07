@@ -31,3 +31,6 @@ input{
 .suzdal_none{
     display: none;
 }
+.align_right{
+    text-align: right;
+}

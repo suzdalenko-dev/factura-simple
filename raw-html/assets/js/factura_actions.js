@@ -45,27 +45,32 @@ function showFormInvoiceCreation(){
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-5">
                                     <div class="card shadow mb-3">
                                         <div class="card-header py-1">
                                             <h6 class="m-0 font-weight-bold text-primary">Datos cliente y tipo de factura</h6>
                                         </div>
                                         <div class="card-body">
-                                            
-                                            <div class="mt-0 mb-0"><code>Cliente ID Desarrollo</code></div>
-                                            <input type="text" id="clientIdDeveloper" disabled>
-
-                                            <div class="mt-2 mb-1 "><code>Número cliente</code></div>
-                                            <input type="text" id="clientNumber" disabled>
-                                            <div class="mt-2 mb-1 "><code>NIF CIF cliente</code></div>
-                                            <input type="text" id="inputNifCif" disabled>
+                                            <div class="row">
+                                                <div class="col-lg-3" style="display:none;">
+                                                    <input type="text" id="clientIdDeveloper" disabled>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="mt-0 mb-0"><code>Número cliente</code></div>
+                                                    <input type="text" id="clientNumber" disabled>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="mt-0 mb-0"><code>NIF CIF cliente</code></div>
+                                                    <input type="text" id="inputNifCif" disabled>
+                                                </div>
+                                            </div>
                                             <div class="mt-2 mb-1 "><code>Razón o denominación social</code></div>
                                             <input type="text" id="autocomplete_input" placeholder="Nombre cliente" oninput="handleInputClient(event)">
                                             <div id="suggestions" class="suggestions-list"></div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-3">
+                                <div class="col-lg-4">
                                     <div class="card shadow mb-3">
                                         <div class="card-header py-1">
                                             <h6 class="m-0 font-weight-bold text-primary">Datos vehículo</h6>
@@ -73,10 +78,8 @@ function showFormInvoiceCreation(){
                                         <div class="card-body">
                                             <div class="mt-0 mb-1 "><code>Matrícula</code></div>
                                             <input type="text" id="inputVehicleMatricula" value="">
-                                            <div class="mt-2 mb-1 "><code>Marca/Modelo</code></div>
+                                            <div class="mt-2 mb-1 "><code>Marca/Modelo/Kilómetros</code></div>
                                             <input type="text" id="inputVehicleMarca" value="">
-                                            <div class="mt-2 mb-1 "><code>Kilómetros</code></div>
-                                            <input type="text" id="inputVehicleKm" value="">
                                         </div>
                                     </div>
                                 </div>
@@ -107,7 +110,7 @@ function showFormInvoiceCreation(){
                                                     </div>
                                                     <div class="col-lg-1"><input type="number" id="cantidadArt0" value="1" oninput="invoiceCalculate()"></div>
                                                     <div class="col-lg-1"><input type="number" id="precioArt0" oninput="invoiceCalculate()"></div>
-                                                    <div class="col-lg-1"><input type="number" value="0" id="descuentoArt0" oninput="invoiceCalculate()"></div>
+                                                    <div class="col-lg-1"><input type="number" value="" id="descuentoArt0" oninput="invoiceCalculate()"></div>
                                                     <div class="col-lg-1" id="ivaArt0"><select oninput="invoiceCalculate()" id="selectIva0"><option value="21"> 21 % </option><option value="10"> 10 % </option><option value="4"> 4 % </option><option value="0"> 0 % </option><option value="0EXENTO"> 0 EXENTO </option></select></div>
                                                     <div class="col-lg-1"><input type="number" disabled="" id="totalArt0"></div>
                                                     <div class="col-lg-1"><i class="fa fa-trash" aria-hidden="true" onclick="deleteThisDiv(0)"></i></div>
@@ -119,17 +122,21 @@ function showFormInvoiceCreation(){
                                             <div class="row mt-1">
                                                 <div class="col-lg-1"></div>
                                                 <div class="col-lg-5"><input type="text" value="Mano de obra" disabled></div>
-                                                <div class="col-lg-1"><input type="number" id="cantidadManoObra" value="1" oninput="invoiceCalculate()"></div>
+                                                <div class="col-lg-1"><input type="number" id="cantidadManoObra" value="" oninput="invoiceCalculate()"></div>
                                                 <div class="col-lg-1"><input type="number" id="precioManoObra" oninput="invoiceCalculate()"></div>
-                                                <div class="col-lg-1"><input type="number" value="0" id="descuentoManoObra" oninput="invoiceCalculate()"></div>
+                                                <div class="col-lg-1"><input type="number" value="" id="descuentoManoObra" oninput="invoiceCalculate()"></div>
                                                 <div class="col-lg-1"><select id="ivaManoObra" oninput="invoiceCalculate()"><option value="21"> 21 % </option><option value="10"> 10 % </option><option value="4"> 4 % </option><option value="0"> 0 % </option><option value="0EXENTO"> 0 EXENTO </option></select></div>
                                                 <div class="col-lg-1"><input type="number" disabled id="totalManoObra"></div>
                                                 <div class="col-lg-1"></div>
                                             </div>
                                             <br>
-                                            <div class="row mb-1"><div class="col-lg-10"></div><div class="col-lg-2"><code>Subtotal: <span id="idSubTotal">0</span> €</code></div></div>
-                                            <div class="row mb-1"><div class="col-lg-10"></div><div class="col-lg-2"><code>IVA: <span id="idIvaTotal">0</span> €</code></div></div> 
-                                            <div class="row mb-1"><div class="col-lg-10"></div><div class="col-lg-2"><code>Total: <span id="idTotalFactura">0</span> €</code></div></div> 
+                                            <div class="row mb-1"><div class="col-lg-10"></div><div class="col-lg-2">
+                                                <table cellpadding="1"><tbody>
+                                                        <tr><td><code>Subtotal:</code></td><td class="align_right"><code id="idSubTotal">0</code></td></tr>
+                                                        <tr><td><code>IVA:</code></td><td class="align_right"><code id="idIvaTotal">0</code></td></tr>
+                                                        <tr><td><code>Total:</code></td><td class="align_right"><code id="idTotalFactura">0</code></td></tr>
+                                                    </tbody></table>
+                                            </div>  
                                         </div>
                                     </div>
                                 </div>
@@ -139,22 +146,18 @@ function showFormInvoiceCreation(){
 
     pageMainContent.innerHTML = htmlSkeleton;
 }
-/*
 
-Concepto	        Precio	 IVA (%)  ImporteIVA	Total
-Filtro de aceite	50 €     21%	  10.50 €	    60.50 €
-Mano de obra	    100 €	 21%	  21.00 €	    121.00 €
-Servicio adicional	200 €	 10%	  20.00 €	    220.00 €
-Total				                                401.50 €
-*/
 function invoiceCalculate(){
+    FACTURA_LINEAS = {lineas:[], manoObra:{}, factura:{}, cliente:{}, vehicle:{}};
     let importeSubtotal = 0;
     let importeIvas     = 0;
    
     let divContrainerNewLines = document.getElementById('divContrainerNewLines');
     let childDivs = divContrainerNewLines.children;
     Array.from(childDivs).forEach((childDiv, index) => {
-        let numLine = childDiv.dataset.line_counter;                
+        let numLine    = childDiv.dataset.line_counter;
+        let idArticle1 = document.getElementById('idArt'+numLine).value.trim();
+        let description= document.getElementById('descriptionArt'+numLine).value.trim();
         let cantidad1  = document.getElementById('cantidadArt'+numLine).value.trim();
         let precio1    = document.getElementById('precioArt'+numLine).value.trim(); 
         let descPorc   = document.getElementById('descuentoArt'+numLine).value.trim();
@@ -163,9 +166,11 @@ function invoiceCalculate(){
         let importe1   = imp1Bruto - desc1Valor;
             importeSubtotal += importe1;
         document.getElementById('totalArt'+numLine).value = parseFloat(importe1).toFixed(2);
+        let ivaType    = document.getElementById('selectIva'+numLine).value.trim();
         let ivaPorcent = document.getElementById('selectIva'+numLine).value.trim() == '0EXENTO' ? 0 :  document.getElementById('selectIva'+numLine).value.trim();
-        let ivaLinea1 = ivaPorcent / 100 * importe1;
-            importeIvas += ivaLinea1;
+        let ivaValLin1 = ivaPorcent / 100 * importe1;
+            importeIvas += ivaValLin1;
+        FACTURA_LINEAS.lineas.push({numLine, idArticle1, description, cantidad1, precio1, descPorc, imp1Bruto, desc1Valor, importe1, ivaPorcent, ivaValLin1, ivaType});
     });
     let canridadManoObra = document.getElementById('cantidadManoObra').value.trim();
     let precioManoObra   = document.getElementById('precioManoObra').value.trim();
@@ -182,8 +187,10 @@ function invoiceCalculate(){
     let valorIvaManoObra = ivaPorcentManoOb / 100 * importeManoObra                                   
     document.getElementById('idIvaTotal').innerText = parseFloat(valorIvaManoObra + importeIvas).toFixed(2);             
     let valorTotalFactura = valorIvaManoObra + importeManoObra + importeSubtotal + importeIvas;                                              
-    document.getElementById('idTotalFactura').innerText =  parseFloat(valorTotalFactura).toFixed(2);         
+    document.getElementById('idTotalFactura').innerText =  parseFloat(valorTotalFactura).toFixed(2);
 
+    FACTURA_LINEAS.manoObra = {canridadManoObra, precioManoObra, importeBrutoManoObra, descManoObr, importeManoObra, ivaPorcentManoOb, valorIvaManoObra};
+    FACTURA_LINEAS.factura = { idSubTotal: importeManoObra + importeSubtotal, idIvaTotal: valorIvaManoObra + importeIvas, idTotalFactura: valorTotalFactura };
 }
 
 function deleteThisDiv(x){
@@ -233,7 +240,8 @@ function handleInputDescription(num, event){
     suggestionsArticles.innerHTML = '';
     if(query){
         let i = 0;
-        let filteredOptions = LISTADO_ARTICULOS_FACTURAS.filter(option => option.description.toLowerCase().includes(query));
+        let queryWords = query.split(' ');
+        let filteredOptions = LISTADO_ARTICULOS_FACTURAS.filter(option => queryWords.every(word => String(option.description).toLowerCase().includes(word)));
         if (filteredOptions.length > 0) {
             suggestionsArticles.style.display = 'block';
             for(y = 0; y < filteredOptions.length; y++){
@@ -294,9 +302,52 @@ function handleInputClient(event){
             };
         }
     }
+    document.getElementById('clientIdDeveloper').value = '';
+    document.getElementById('clientNumber').value      = '';
+    document.getElementById('inputNifCif').value       = '';
 }
 
 function clickCreateInvoice(){
-    
+    let selectTypeInvoice = document.getElementById('selectTypeInvoice').value.trim();
+    if(selectTypeInvoice != 'O') { alert('En desarrollo, por ahora solo facturas ordinarias'); return; }
+    let clientIdDeveloper = document.getElementById('clientIdDeveloper').value.trim();
+    let clientNumber      = document.getElementById('clientNumber').value.trim();
+    let clienteRazon      = document.getElementById('autocomplete_input').value.trim();
+    if(!clientIdDeveloper || !clientNumber || !clienteRazon) { alert('Cliente no definido'); return; }
+    let inputVehicleMatricula = document.getElementById('inputVehicleMatricula').value.trim();
+    let inputVehicleMarca     = document.getElementById('inputVehicleMarca').value.trim();
+
+
+    FACTURA_LINEAS.cliente = {clientIdDeveloper, clientNumber, clienteRazon };
+    FACTURA_LINEAS.vehicle = {inputVehicleMatricula, inputVehicleMarca};
+    FACTURA_LINEAS.factura.selectTypeInvoice = selectTypeInvoice;
+
+    if(!FACTURA_LINEAS || !FACTURA_LINEAS.lineas || FACTURA_LINEAS.lineas.length == 0) { alert('Añade lineas'); return; }
+
+    invoicePutRequest('invoice/put/0', FACTURA_LINEAS).then(response => {
+        console.log(response)
+    });
 }
 
+async function invoicePutRequest(url, data){
+    try {
+        data.credentials = {};
+        data.credentials.company_id = window.localStorage.getItem('company_id');
+        data.credentials.email      = window.localStorage.getItem('email');
+        data.credentials.cif        = window.localStorage.getItem('cif');
+        data.credentials.uid        = window.localStorage.getItem('uid');
+        data.credentials.password   = window.localStorage.getItem('password');
+
+        let uri = HTTP_URL + url;
+        let response = await fetch(uri, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data) });
+
+        let responseData = await response.json();
+        if(responseData && responseData.status == 'error'){
+            setTimeout(() => { alert(responseData.message); }, 1000);
+        }
+        return responseData;
+    } catch (error) {
+        alert('Error 1 ' + error);
+        console.error('There was a problem with the fetch operation:', error);
+    }
+}
