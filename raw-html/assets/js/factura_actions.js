@@ -177,6 +177,7 @@ function invoiceCalculate(){
         if(canridadManoObra == '') canridadManoObra = 0;
     let precioManoObra   = document.getElementById('precioManoObra').value.trim();
     let ivaPorcentManoOb = document.getElementById('ivaManoObra').value.trim() == '0EXENTO' ? 0 :  document.getElementById('ivaManoObra').value.trim();
+    let tipoIvaManoObra  = document.getElementById('ivaManoObra').value.trim();
     let porcentajeDesMOb = document.getElementById('descuentoManoObra').value.trim();
                     
     /* linea mano de obra */
@@ -191,7 +192,7 @@ function invoiceCalculate(){
     let valorTotalFactura = valorIvaManoObra + importeManoObra + importeSubtotal + importeIvas;                                              
     document.getElementById('idTotalFactura').innerText =  parseFloat(valorTotalFactura).toFixed(2);
 
-    FACTURA_LINEAS.manoObra = {canridadManoObra, precioManoObra, importeBrutoManoObra, descManoObr, importeManoObra, ivaPorcentManoOb, valorIvaManoObra};
+    FACTURA_LINEAS.manoObra = {canridadManoObra, precioManoObra, importeBrutoManoObra, descManoObr, importeManoObra, ivaPorcentManoOb, valorIvaManoObra, tipoIvaManoObra};
     FACTURA_LINEAS.factura = { idSubTotal: importeManoObra + importeSubtotal, idIvaTotal: valorIvaManoObra + importeIvas, idTotalFactura: valorTotalFactura };
     FACTURA_LINEAS.desglose = DESGLOSE;
 }
