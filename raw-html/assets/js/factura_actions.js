@@ -110,7 +110,7 @@ function showFormInvoiceCreation(){
                                                     </div>
                                                     <div class="col-lg-1"><input type="number" id="cantidadArt0" value="1" oninput="invoiceCalculate()"></div>
                                                     <div class="col-lg-1"><input type="number" id="precioArt0" oninput="invoiceCalculate()"></div>
-                                                    <div class="col-lg-1"><input type="number" value="" id="descuentoArt0" oninput="invoiceCalculate()"></div>
+                                                    <div class="col-lg-1"><input type="number" value="0" id="descuentoArt0" oninput="invoiceCalculate()"></div>
                                                     <div class="col-lg-1" id="ivaArt0"><select oninput="invoiceCalculate()" id="selectIva0"><option value="21"> 21 % </option><option value="10"> 10 % </option><option value="4"> 4 % </option><option value="0"> 0 % </option><option value="0EXENTO"> 0 EXENTO </option></select></div>
                                                     <div class="col-lg-1"><input type="number" disabled="" id="totalArt0"></div>
                                                     <div class="col-lg-1"><i class="fa fa-trash" aria-hidden="true" onclick="deleteThisDiv(0)"></i></div>
@@ -148,7 +148,7 @@ function showFormInvoiceCreation(){
 }
 
 function invoiceCalculate(){
-    FACTURA_LINEAS = {lineas:[], manoObra:{}, factura:{}, cliente:{}, vehicle:{}};
+    FACTURA_LINEAS = {lineas:[], manoObra:{}, factura:{}, cliente:{}, vehicle:{}, desglose:{}};
     let importeSubtotal = 0;
     let importeIvas     = 0;
    
@@ -161,6 +161,7 @@ function invoiceCalculate(){
         let cantidad1  = document.getElementById('cantidadArt'+numLine).value.trim();
         let precio1    = document.getElementById('precioArt'+numLine).value.trim(); 
         let descPorc   = document.getElementById('descuentoArt'+numLine).value.trim();
+            if(descPorc == '') descPorc = 0;
         let imp1Bruto  = cantidad1 * precio1;
         let desc1Valor = descPorc / 100 * imp1Bruto;
         let importe1   = imp1Bruto - desc1Valor;
@@ -173,6 +174,7 @@ function invoiceCalculate(){
         FACTURA_LINEAS.lineas.push({numLine, idArticle1, description, cantidad1, precio1, descPorc, imp1Bruto, desc1Valor, importe1, ivaPorcent, ivaValLin1, ivaType});
     });
     let canridadManoObra = document.getElementById('cantidadManoObra').value.trim();
+        if(canridadManoObra == '') canridadManoObra = 0;
     let precioManoObra   = document.getElementById('precioManoObra').value.trim();
     let ivaPorcentManoOb = document.getElementById('ivaManoObra').value.trim() == '0EXENTO' ? 0 :  document.getElementById('ivaManoObra').value.trim();
     let porcentajeDesMOb = document.getElementById('descuentoManoObra').value.trim();
@@ -191,6 +193,7 @@ function invoiceCalculate(){
 
     FACTURA_LINEAS.manoObra = {canridadManoObra, precioManoObra, importeBrutoManoObra, descManoObr, importeManoObra, ivaPorcentManoOb, valorIvaManoObra};
     FACTURA_LINEAS.factura = { idSubTotal: importeManoObra + importeSubtotal, idIvaTotal: valorIvaManoObra + importeIvas, idTotalFactura: valorTotalFactura };
+    FACTURA_LINEAS.desglose = DESGLOSE;
 }
 
 function deleteThisDiv(x){
@@ -269,6 +272,8 @@ function handleInputDescription(num, event){
         }
     }
     invoiceCalculate();
+    document.getElementById('idArt'+num).value     = ''; // he seleccionado el  articulo, pero le cambio la descripcion
+    document.getElementById('numberArt'+num).value = '';
 }
 
 function handleInputClient(event){
@@ -317,12 +322,19 @@ function clickCreateInvoice(){
     let inputVehicleMatricula = document.getElementById('inputVehicleMatricula').value.trim();
     let inputVehicleMarca     = document.getElementById('inputVehicleMarca').value.trim();
 
-
+    if(!FACTURA_LINEAS || !FACTURA_LINEAS.lineas || FACTURA_LINEAS.lineas.length == 0) { alert('Añade lineas en la factura'); return; }
+    let error = false;
+    FACTURA_LINEAS.lineas.forEach(linea => {
+        if(!linea.description || linea.description.length < 3){ alert('Descripcion del artículo'); error = true; return; }
+        if(!linea.cantidad1 || linea.cantidad1 == 0 || linea.cantidad1.trim() == ''){ alert('Cantidad del artículo'); error = true; return; }
+        if(!linea.precio1 || linea.precio1 == 0 || linea.precio1.trim() == ''){ alert('Precio del artículo'); error = true; return; }
+    });
+    if(error == true) { return; }
     FACTURA_LINEAS.cliente = {clientIdDeveloper, clientNumber, clienteRazon };
-    FACTURA_LINEAS.vehicle = {inputVehicleMatricula, inputVehicleMarca};
+    FACTURA_LINEAS.vehicle = {inputVehicleMatricula, inputVehicleMarca};                                       
     FACTURA_LINEAS.factura.selectTypeInvoice = selectTypeInvoice;
 
-    if(!FACTURA_LINEAS || !FACTURA_LINEAS.lineas || FACTURA_LINEAS.lineas.length == 0) { alert('Añade lineas'); return; }
+    
 
     invoicePutRequest('invoice/put/0', FACTURA_LINEAS).then(response => {
         console.log(response)

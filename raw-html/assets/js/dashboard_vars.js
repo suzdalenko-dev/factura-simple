@@ -13,3 +13,10 @@ let LISTADO_ARTICULOS_FACTURAS = [];
 let EMPRESA_FACTURAS           = {};
 let LINE_COUNTER               = 0;
 let FACTURA_LINEAS             = {};
+let DESGLOSE = [
+    { iva:21, valor:0 },
+    { iva:10, valor:0 },
+    { iva:4, valor:0 },
+    { iva:0, valor:0 },
+    { iva:'0EXENTO', valor:0 },
+]
