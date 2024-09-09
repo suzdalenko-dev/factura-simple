@@ -40,5 +40,8 @@ function showListInvoices(x){
 }
 
 function showCustomPDF(factura_id){
-    
+    postRequest('pdf/create/'+factura_id, new FormData()).then(r => {
+        console.log(r.url)
+        window.open(HTTP_URL+r.url, '_blank')
+    });
 }
