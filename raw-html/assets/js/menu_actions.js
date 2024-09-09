@@ -7,6 +7,8 @@ function defaultController(action, entidad, id){
         if(data && data.res){                                       
             crearTablaEntidadPrincipal(data.res, entidad);
             checkCompanyData(data.company);
+            if(entidad.name == 'factura'){ showListInvoices(data); }
+            FACTURA_CREATION_CLICKED = false;
         } else {
             alert('Error al traer datos 3 '+ entidad.name);
         }
@@ -16,8 +18,8 @@ function defaultController(action, entidad, id){
     });
 }
 
-// defaultController(DEFAULT_ACTION, DEFAULT_ENTITY, 0);
-showFormInvoiceCreation()
+defaultController(DEFAULT_ACTION, DEFAULT_ENTITY, 0);
+// showFormInvoiceCreation()
 
 /* button en left menu */
 document.getElementById('facturaClick').addEventListener('click', () => {

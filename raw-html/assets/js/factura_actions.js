@@ -8,14 +8,14 @@ async function traerDatosClientArtFacturas(){
     });
     postRequest('default/get/articulo/0', new FormData()).then(listadoArticles => {
         if(listadoArticles.res.length == 0){
-            alert('Para crear factura al menos tiene que tener 1 cliente creado previamente..');
+            alert('Para crear factura al menos tiene que tener 1 artículo creado previamente..');
         }
         LISTADO_ARTICULOS_FACTURAS = [];
         LISTADO_ARTICULOS_FACTURAS = listadoArticles.res;
     });
     postRequest('default/get/empresa/0', new FormData()).then(empresaData => {
         if(empresaData.res.length == 0){
-            alert('Para crear factura al menos tiene que tener 1 cliente creado previamente..');
+            alert('Para crear factura al menos rellene los datos de la empresa..');
         }
         EMPRESA_FACTURAS = {};
         EMPRESA_FACTURAS = empresaData.res[0];
@@ -29,7 +29,7 @@ function showFormInvoiceCreation(){
     traerDatosClientArtFacturas();
 
     pageTitle.innerText = 'Crear Factura'
-    let htmlTipeInvoice = '<select id="selectTypeInvoice">';
+    let htmlTipeInvoice = '<select id="selectTypeInvoice" class="factura_select">';
     INVOICES_LIST.forEach(invoiceLine => { htmlTipeInvoice += `<option value="${invoiceLine.letter}">${invoiceLine.title}</option>`; });
     htmlTipeInvoice += '</select>';
     let htmlSkeleton = `<div class="container-fluid">
@@ -97,8 +97,8 @@ function showFormInvoiceCreation(){
                                                 <div class="col-lg-1"><code>Cantidad</code></div>
                                                 <div class="col-lg-1"><code>Precio</code></div>
                                                 <div class="col-lg-1"><code>% Dto. </code></div>
-                                                <div class="col-lg-1"><code>IVA</code></div>
                                                 <div class="col-lg-1"><code>Importe</code></div>
+                                                <div class="col-lg-1"><code>IVA</code></div>
                                                 <div class="col-lg-1"></div>
                                             </div>
                                             <div id="divContrainerNewLines">
@@ -111,9 +111,9 @@ function showFormInvoiceCreation(){
                                                     <div class="col-lg-1"><input type="number" id="cantidadArt0" value="1" oninput="invoiceCalculate()"></div>
                                                     <div class="col-lg-1"><input type="number" id="precioArt0" oninput="invoiceCalculate()"></div>
                                                     <div class="col-lg-1"><input type="number" value="0" id="descuentoArt0" oninput="invoiceCalculate()"></div>
-                                                    <div class="col-lg-1" id="ivaArt0"><select oninput="invoiceCalculate()" id="selectIva0"><option value="21"> 21 % </option><option value="10"> 10 % </option><option value="4"> 4 % </option><option value="0"> 0 % </option><option value="0EXENTO"> 0 EXENTO </option></select></div>
                                                     <div class="col-lg-1"><input type="number" disabled="" id="totalArt0"></div>
-                                                    <div class="col-lg-1"><i class="fa fa-trash" aria-hidden="true" onclick="deleteThisDiv(0)"></i></div>
+                                                    <div class="col-lg-1" id="ivaArt0"><select class="factura_select" oninput="invoiceCalculate()" id="selectIva0"><option value="21"> 21 % </option><option value="10"> 10 % </option><option value="4"> 4 % </option><option value="0"> 0 % </option><option value="0EXENTO"> 0 EXENTO </option></select></div>
+                                                    <div class="col-lg-1"> <i class="fa fa-trash" aria-hidden="true" onclick="deleteThisDiv(0)"></i></div>
                                                 </div>
                                             </div>
                                             <div class="row mt-4">
@@ -125,8 +125,8 @@ function showFormInvoiceCreation(){
                                                 <div class="col-lg-1"><input type="number" id="cantidadManoObra" value="" oninput="invoiceCalculate()"></div>
                                                 <div class="col-lg-1"><input type="number" id="precioManoObra" oninput="invoiceCalculate()"></div>
                                                 <div class="col-lg-1"><input type="number" value="" id="descuentoManoObra" oninput="invoiceCalculate()"></div>
-                                                <div class="col-lg-1"><select id="ivaManoObra" oninput="invoiceCalculate()"><option value="21"> 21 % </option><option value="10"> 10 % </option><option value="4"> 4 % </option><option value="0"> 0 % </option><option value="0EXENTO"> 0 EXENTO </option></select></div>
                                                 <div class="col-lg-1"><input type="number" disabled id="totalManoObra"></div>
+                                                <div class="col-lg-1"><select class="factura_select" id="ivaManoObra" oninput="invoiceCalculate()"><option value="21"> 21 % </option><option value="10"> 10 % </option><option value="4"> 4 % </option><option value="0"> 0 % </option><option value="0EXENTO"> 0 EXENTO </option></select></div>
                                                 <div class="col-lg-1"></div>
                                             </div>
                                             <br>
@@ -216,9 +216,9 @@ function idAddNewLine(){
                             <div class="col-lg-1"><input type="number" id="cantidadArt${LINE_COUNTER}" value="1" oninput="invoiceCalculate()"></div>
                             <div class="col-lg-1"><input type="number" id="precioArt${LINE_COUNTER}" oninput="invoiceCalculate()"></div>
                             <div class="col-lg-1"><input type="number" value="0" id="descuentoArt${LINE_COUNTER}" oninput="invoiceCalculate()"></div>
-                            <div class="col-lg-1" id="ivaArt${LINE_COUNTER}"><select oninput="invoiceCalculate()" id="selectIva${LINE_COUNTER}"><option value="21"> 21 % </option><option value="10"> 10 % </option><option value="4"> 4 % </option><option value="0"> 0 % </option><option value="0EXENTO"> 0 EXENTO </option></select></div>
                             <div class="col-lg-1"><input type="number" disabled id="totalArt${LINE_COUNTER}"></div>
-                            <div class="col-lg-1"><i class="fa fa-trash" aria-hidden="true" onclick="deleteThisDiv(${LINE_COUNTER})"></i></div>
+                            <div class="col-lg-1" id="ivaArt${LINE_COUNTER}"><select class="factura_select" oninput="invoiceCalculate()" id="selectIva${LINE_COUNTER}"><option value="21"> 21 % </option><option value="10"> 10 % </option><option value="4"> 4 % </option><option value="0"> 0 % </option><option value="0EXENTO"> 0 EXENTO </option></select></div>
+                            <div class="col-lg-1"> <i class="fa fa-trash" aria-hidden="true" onclick="deleteThisDiv(${LINE_COUNTER})"></i></div>
                         </div>`;
     tempDiv.innerHTML = contenidoHTML;
     let newElement = tempDiv.firstElementChild;
@@ -227,7 +227,7 @@ function idAddNewLine(){
 
 function returnIvaType(num, ivatype, iva){
     let selectedType = '';
-    let htmlIva = `<select id="selectIva${num}" oninput="invoiceCalculate()">`;
+    let htmlIva = `<select id="selectIva${num}" oninput="invoiceCalculate()" class="factura_select">`;
     IVAS_LIST.forEach(item => {
         if(ivatype == 'norm' && item.title == iva ){ selectedType = 'selected'; }
         if(ivatype == 'exento' && item.title == '0EXENTO') { selectedType = 'selected'; }
@@ -335,10 +335,17 @@ function clickCreateInvoice(){
     FACTURA_LINEAS.vehicle = {inputVehicleMatricula, inputVehicleMarca};                                       
     FACTURA_LINEAS.factura.selectTypeInvoice = selectTypeInvoice;
 
-    
+    if(FACTURA_CREATION_CLICKED) { return; }
+    FACTURA_CREATION_CLICKED = true;
 
     invoicePutRequest('invoice/put/0', FACTURA_LINEAS).then(response => {
-        console.log(response)
+        if(response && response.status == 'ok'){
+            DEFAULT_ENTITY = {name:'factura', title:'Facturas'};
+            defaultController(DEFAULT_ACTION, DEFAULT_ENTITY, 0);
+        } else {
+            alert('Error al crear la factura..')
+        }
+        document.getElementById('idCreateInvoice').innerHTML = '<i class="fas fa-save" aria-hidden="true"></i> Grabando..'
     });
 }
 
@@ -360,7 +367,7 @@ async function invoicePutRequest(url, data){
         }
         return responseData;
     } catch (error) {
-        alert('Error 1 ' + error);
+        alert('Error 11 ' + error);
         console.error('There was a problem with the fetch operation:', error);
     }
 }

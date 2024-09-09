@@ -23,7 +23,7 @@ function checkCompanyData(dataCompany){
 
 // listado completo de articulos o clientes
 function crearTablaEntidadPrincipal(listData, entityData){             
-    let currentHtmlEntity = '<span>'+entityData.name+'</span>';
+    let currentHtmlEntity = '';
     if('articulo' == entityData.name){
         /* Pestaña Articulos */
         let tableContent = '';

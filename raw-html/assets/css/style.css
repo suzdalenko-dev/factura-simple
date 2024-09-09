@@ -34,3 +34,6 @@ input{
 .align_right{
     text-align: right;
 }
+.factura_select{
+    width: 90%;
+}
