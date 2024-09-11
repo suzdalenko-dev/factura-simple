@@ -295,7 +295,7 @@ function addNewArticleNewCustomer(entity, datosEntidadConcreta){
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-4" style="display: none">
                                         <div class="card shadow mb-4">
                                             <div class="card-header py-1">
                                                 <h6 class="m-0 font-weight-bold text-primary">Vehículos 0</h6>

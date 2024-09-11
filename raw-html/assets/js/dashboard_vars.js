@@ -14,10 +14,10 @@ let EMPRESA_FACTURAS           = {};
 let LINE_COUNTER               = 0;
 let FACTURA_LINEAS             = {};
 let DESGLOSE = [
-    { iva:21, valor_iva:0, base_imponible:0, total_con_iva:0 },
-    { iva:10, valor_iva:0, base_imponible:0, total_con_iva:0 },
-    { iva:4,  valor_iva:0, base_imponible:0, total_con_iva:0 },
-    { iva:0,  valor_iva:0, base_imponible:0, total_con_iva:0 },
-    { iva:'0EXENTO', valor:0 },
+    { iva:21,        valor_iva:0, base_imponible:0, total_con_iva:0, recec: 5.2 },
+    { iva:10,        valor_iva:0, base_imponible:0, total_con_iva:0, recec: 1.4 },
+    { iva:4,         valor_iva:0, base_imponible:0, total_con_iva:0, recec: 0   },
+    { iva:0,         valor_iva:0, base_imponible:0, total_con_iva:0, recec: 0   },
+    { iva:'0EXENTO', valor_iva:0, base_imponible:0, total_con_iva:0, recec: 0   }
 ];
 let FACTURA_CREATION_CLICKED = false;

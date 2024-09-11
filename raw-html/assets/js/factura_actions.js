@@ -93,9 +93,9 @@ function showFormInvoiceCreation(){
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-lg-1"><code>Codígo Art.</code></div>
-                                                <div class="col-lg-5"><code>Descripción Art.</code></div>
+                                                <div class="col-lg-4"><code>Descripción Art.</code></div>
                                                 <div class="col-lg-1"><code>Cantidad</code></div>
-                                                <div class="col-lg-1"><code>Precio</code></div>
+                                                <div class="col-lg-2"><code>Precio</code></div>
                                                 <div class="col-lg-1"><code>% Dto. </code></div>
                                                 <div class="col-lg-1"><code>Importe</code></div>
                                                 <div class="col-lg-1"><code>IVA</code></div>
@@ -104,12 +104,12 @@ function showFormInvoiceCreation(){
                                             <div id="divContrainerNewLines">
                                                 <div class="row mt-1" id="deleteDivNumber0" data-line_counter="0">
                                                     <div class="col-lg-1"><input type="number" class="suzdal_none" id="idArt0"><input type="number" disabled="" id="numberArt0"></div>
-                                                    <div class="col-lg-5">
+                                                    <div class="col-lg-4">
                                                         <input type="text" id="descriptionArt0" oninput="handleInputDescription(0, event)">
                                                         <div id="suggestionsArticles0" class="suggestions-list"></div>    
                                                     </div>
                                                     <div class="col-lg-1"><input type="number" id="cantidadArt0" value="1" oninput="invoiceCalculate()"></div>
-                                                    <div class="col-lg-1"><input type="number" id="precioArt0" oninput="invoiceCalculate()"></div>
+                                                    <div class="col-lg-2"><input type="number" id="precioArt0" oninput="invoiceCalculate()"></div>
                                                     <div class="col-lg-1"><input type="number" value="0" id="descuentoArt0" oninput="invoiceCalculate()"></div>
                                                     <div class="col-lg-1"><input type="number" disabled="" id="totalArt0"></div>
                                                     <div class="col-lg-1" id="ivaArt0"><select class="factura_select" oninput="invoiceCalculate()" id="selectIva0"><option value="21"> 21 % </option><option value="10"> 10 % </option><option value="4"> 4 % </option><option value="0"> 0 % </option><option value="0EXENTO"> 0 EXENTO </option></select></div>
@@ -121,9 +121,9 @@ function showFormInvoiceCreation(){
                                             </div>
                                             <div class="row mt-1">
                                                 <div class="col-lg-1"></div>
-                                                <div class="col-lg-5"><input type="text" value="Mano de obra" disabled></div>
+                                                <div class="col-lg-4"><input type="text" value="Mano de obra" disabled></div>
                                                 <div class="col-lg-1"><input type="number" id="cantidadManoObra" value="" oninput="invoiceCalculate()"></div>
-                                                <div class="col-lg-1"><input type="number" id="precioManoObra" oninput="invoiceCalculate()"></div>
+                                                <div class="col-lg-2"><input type="number" id="precioManoObra" oninput="invoiceCalculate()"></div>
                                                 <div class="col-lg-1"><input type="number" value="" id="descuentoManoObra" oninput="invoiceCalculate()"></div>
                                                 <div class="col-lg-1"><input type="number" disabled id="totalManoObra"></div>
                                                 <div class="col-lg-1"><select class="factura_select" id="ivaManoObra" oninput="invoiceCalculate()"><option value="21"> 21 % </option><option value="10"> 10 % </option><option value="4"> 4 % </option><option value="0"> 0 % </option><option value="0EXENTO"> 0 EXENTO </option></select></div>
@@ -209,12 +209,12 @@ function idAddNewLine(){
     let tempDiv = document.createElement('div');
     let contenidoHTML = `<div class="row mt-1" id="deleteDivNumber${LINE_COUNTER}" data-line_counter="${LINE_COUNTER}">
                             <div class="col-lg-1"><input type="number" class="suzdal_none" id="idArt${LINE_COUNTER}"><input type="number" disabled id="numberArt${LINE_COUNTER}"></div>
-                            <div class="col-lg-5">
+                            <div class="col-lg-4">
                                 <input type="text" id="descriptionArt${LINE_COUNTER}" oninput="handleInputDescription(${LINE_COUNTER}, event)">
                                 <div id="suggestionsArticles${LINE_COUNTER}" class="suggestions-list"></div>    
                             </div>
                             <div class="col-lg-1"><input type="number" id="cantidadArt${LINE_COUNTER}" value="1" oninput="invoiceCalculate()"></div>
-                            <div class="col-lg-1"><input type="number" id="precioArt${LINE_COUNTER}" oninput="invoiceCalculate()"></div>
+                            <div class="col-lg-2"><input type="number" id="precioArt${LINE_COUNTER}" oninput="invoiceCalculate()"></div>
                             <div class="col-lg-1"><input type="number" value="0" id="descuentoArt${LINE_COUNTER}" oninput="invoiceCalculate()"></div>
                             <div class="col-lg-1"><input type="number" disabled id="totalArt${LINE_COUNTER}"></div>
                             <div class="col-lg-1" id="ivaArt${LINE_COUNTER}"><select class="factura_select" oninput="invoiceCalculate()" id="selectIva${LINE_COUNTER}"><option value="21"> 21 % </option><option value="10"> 10 % </option><option value="4"> 4 % </option><option value="0"> 0 % </option><option value="0EXENTO"> 0 EXENTO </option></select></div>
