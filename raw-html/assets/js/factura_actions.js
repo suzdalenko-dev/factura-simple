@@ -29,7 +29,7 @@ function showFormInvoiceCreation(){
     traerDatosClientArtFacturas();
 
     pageTitle.innerText = 'Crear Factura'
-    let htmlTipeInvoice = '<select id="selectTypeInvoice" class="factura_select">';
+    let htmlTipeInvoice = '<select id="selectTypeInvoice">';
     INVOICES_LIST.forEach(invoiceLine => { htmlTipeInvoice += `<option value="${invoiceLine.letter}">${invoiceLine.title}</option>`; });
     htmlTipeInvoice += '</select>';
     let htmlSkeleton = `<div class="container-fluid">
@@ -135,8 +135,11 @@ function showFormInvoiceCreation(){
                                                         <tr><td><code>Subtotal:</code></td><td class="align_right"><code id="idSubTotal">0</code></td></tr>
                                                         <tr><td><code>IVA:</code></td><td class="align_right"><code id="idIvaTotal">0</code></td></tr>
                                                         <tr><td><code>Total:</code></td><td class="align_right"><code id="idTotalFactura">0</code></td></tr>
-                                                    </tbody></table>
-                                            </div>  
+                                                </tbody></table></div>
+                                            </div>
+                                            <div class="row mb-1">
+                                                <div class="col-lg-5"><textarea placeholder="Observaciones" class="obstextarea" id="obstextareaid"></textarea></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -148,7 +151,7 @@ function showFormInvoiceCreation(){
 }
 
 function invoiceCalculate(){
-    FACTURA_LINEAS = {lineas:[], manoObra:{}, factura:{}, cliente:{}, vehicle:{}, desglose:{}};
+    FACTURA_LINEAS = {lineas:[], manoObra:{}, factura:{}, cliente:{}, vehicle:{}, desglose:{}, observaciones:{}};
     let importeSubtotal = 0;
     let importeIvas     = 0;
    
@@ -322,6 +325,7 @@ function clickCreateInvoice(){
     if(!clientIdDeveloper || !clientNumber || !clienteRazon) { alert('Cliente no definido'); return; }
     let inputVehicleMatricula = document.getElementById('inputVehicleMatricula').value.trim();
     let inputVehicleMarca     = document.getElementById('inputVehicleMarca').value.trim();
+    let obstextareaid         = document.getElementById('obstextareaid').value.trim()
 
     if(!FACTURA_LINEAS || !FACTURA_LINEAS.lineas || FACTURA_LINEAS.lineas.length == 0) { alert('Añade lineas en la factura'); return; }
     let error = false;
@@ -334,14 +338,16 @@ function clickCreateInvoice(){
     FACTURA_LINEAS.cliente = {clientIdDeveloper, clientNumber, clienteRazon };
     FACTURA_LINEAS.vehicle = {inputVehicleMatricula, inputVehicleMarca};                                       
     FACTURA_LINEAS.factura.selectTypeInvoice = selectTypeInvoice;
+    FACTURA_LINEAS.observaciones = {obstextareaid}
 
     if(FACTURA_CREATION_CLICKED) { return; }
     FACTURA_CREATION_CLICKED = true;
 
     invoicePutRequest('invoice/put/0', FACTURA_LINEAS).then(response => {
-        if(response && response.status == 'ok'){
+        if(response && response.status == 'ok' && response.factura_id && response.factura_id > 0){
             DEFAULT_ENTITY = {name:'factura', title:'Facturas'};
             defaultController(DEFAULT_ACTION, DEFAULT_ENTITY, 0);
+            showCustomPDF(response.factura_id)
         } else {
             alert('Error al crear la factura..')
         }
