@@ -1,4 +1,4 @@
-function saveNewArticle(event){
+function saveNewArticle(event, articleId){
     event.preventDefault();
 
     let inputArticleName = document.getElementById('inputArticleName').value.trim();
@@ -18,7 +18,7 @@ function saveNewArticle(event){
         formData.append('iva', inputArticleIva);
         formData.append('ivatype', ivatype);
 
-    postRequest('default/put/articulo/0', formData).then(dataArticle => {
+    postRequest('default/put/articulo/'+articleId, formData).then(dataArticle => {
         try{
             DEFAULT_ENTITY = {name:'articulo', title:'Artículos'};
             defaultController('get', DEFAULT_ENTITY, 0);

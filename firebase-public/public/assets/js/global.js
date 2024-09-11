@@ -11,7 +11,10 @@ async function registerRequest(url, formData){
         let response = await fetch(uri, {method:'POST', body: formData});
         let data = await response.json();
         if(data && data.status == 'error'){
-            alert(data.message)
+            alert(data.message);
+        }
+        if(!data){
+            alert('Error al traer datos.. '+url);
         }
         return data;
     } catch (error) {
@@ -44,7 +47,6 @@ async function postRequest(url, formData){
     }
 }
 
-
 function formatDateInvoice() {
     let miDate = new Date();
     const day = String(miDate.getDate()).padStart(2, '0'); 
@@ -64,11 +66,16 @@ function globalCurrentDate(){
     return `${hours}:${minutes}:${seconds} ${day}/${month}/${year}`;
 }
 
-
 let IVAS_LIST = [
     {'title': 21, 'percentage': ' 21 % '},
     {'title': 10, 'percentage': ' 10 % '},
     {'title': 4, 'percentage': ' 4 % '},
     {'title': 0, 'percentage': ' 0 % '},
     {'title': '0EXENTO', 'percentage': ' 0 EXENTO '},
+];
+
+let INVOICES_LIST = [
+    {title: 'Factura Ordinaria', letter: 'O'},
+    {title: 'Factura Rectificativa', letter: 'R'},
+    {title: 'Factura Abono', letter: 'A'},
 ];

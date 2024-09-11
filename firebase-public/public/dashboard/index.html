@@ -14,7 +14,7 @@
 
     <link href="/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-    <link href="/assets/css/sb-admin-2.min.css" rel="stylesheet" type="text/css">
+    <link href="/assets/css/sb-admin-2.css" rel="stylesheet" type="text/css">
     <link href="/assets/css/style.css" rel="stylesheet" type="text/css">
     
     <script src="/assets/js/global.js"></script>
@@ -43,80 +43,28 @@
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Mi Empresa</span>
                 </a>
-            </li><!--
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Utilidades</span>
-                </a>
             </li>
-            <hr class="sidebar-divider">
-            <div class="sidebar-heading">
-                Informes
-            </div>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Gráficos</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Informes Excel</span></a>
-            </li> -->
         </ul>
 
-        <div id="content-wrapper" class="d-flex flex-column">
-            <div id="content">
-                <!-- barra de busqueda arriba -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
-                    <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Buscar.." id="searchInputId">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button" id="buttonIdSearch"><i class="fas fa-search fa-sm"></i></button>
-                            </div>
-                        </div>
-                    </form>
-                    <ul class="navbar-nav ml-auto">
-                        <div class="topbar-divider d-none d-sm-block"></div>
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"></span>
-                                <img class="img-profile rounded-circle" src="/assets/img/loginimage.jpg" alt="Factura Simple">
-                            </a>
-
-                        </li>
-                    </ul>
-                </nav>
-
-                <div class="container-fluid">
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800" id="pageTitle">Simple Factura..</h1>
-                        <div>
+        <div id="content-wrapper" style="display: flex; flex-direction: column; min-height: 100vh;">
+                <div class="container-fluid" style="background-color: white; padding-top: 11px;">
+                    <div class="d-sm-flex align-items-center justify-content-between mb-2">
+                        <h1 class="h3 mb-0 text-black-800" id="pageTitle" style="margin-left: 19px;">Simple Factura..</h1>
+                        <div style="background-color: white;">
                             <a href="#CreateArticle" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="addArticleClick"><i class="fa-solid fa-plus fa-sm text-white-50"></i> Articulo</a>
                             <a href="#CreateCustomer" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="addCustomerClick"><i class="fa-solid fa-plus fa-sm text-white-50"></i> Cliente</a>
                             <a href="#CreateInvoice" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="addInvoiceClick"><i class="fa-solid fa-plus fa-sm text-white-50"></i> Factura</a>
+                            <a href="/" id="addInvoiceClick">
+                                <img class="img-profile rounded-circle" src="/assets/img/loginimage.jpg" alt="Factura Simple" width="30px">
+                            </a>
                         </div>
                     </div>
                 </div>
-
-
-
-                <div id="pageMainContent">
+                <br>
+                <div id="pageMainContent" style="flex: 1;">
 
                 </div>
-
-
-
-
-            </div>
+            
  
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
@@ -128,9 +76,11 @@
         </div>
     </div>
     <script src="/assets/js/dashboard_vars.js"></script>
+    <script src="/assets/js/vista_facturas.js"></script>
     <script src="/assets/js/menu_functions.js"></script>
     <script src="/assets/js/article_actions.js"></script>
     <script src="/assets/js/customer_actions.js"></script>
+    <script src="/assets/js/factura_actions.js"></script>
 
     <script src="/assets/js/company_actions.js"></script>
     <script src="/assets/js/menu_actions.js"></script>
