@@ -29,7 +29,7 @@ function showFormInvoiceCreation(){
     traerDatosClientArtFacturas();
 
     pageTitle.innerText = 'Crear Factura'
-    let htmlTipeInvoice = '<select id="selectTypeInvoice">';
+    let htmlTipeInvoice = '<select id="selectTypeInvoice" onchange="cambioTipoFacturaMano(event)">';
     INVOICES_LIST.forEach(invoiceLine => { htmlTipeInvoice += `<option value="${invoiceLine.letter}">${invoiceLine.title}</option>`; });
     htmlTipeInvoice += '</select>';
     let htmlSkeleton = `<div class="container-fluid">
@@ -42,6 +42,7 @@ function showFormInvoiceCreation(){
                                         <div class="card-body">
                                             <div class="mt-0 mb-1 "><code>Tipo Ordinaria/Rectificativa/Abono</code></div>
                                             ${htmlTipeInvoice}
+                                            <div id="espacioParaSelectTypeFactura"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -317,8 +318,11 @@ function handleInputClient(event){
 }
 
 function clickCreateInvoice(){
-    let selectTypeInvoice = document.getElementById('selectTypeInvoice').value.trim();
-    if(selectTypeInvoice != 'O') { alert('En desarrollo, por ahora solo facturas ordinarias'); return; }
+    let tipo_factura = document.getElementById('selectTypeInvoice').value.trim();
+    let name_factura = '';
+    INVOICES_LIST.forEach(item => { if(item.letter == tipo_factura){ name_factura = item.name_factura; }});
+    let apunta_facturaValor = document.getElementById('selectFacturaRectificar');
+    if(apunta_facturaValor && apunta_facturaValor.value) { apunta_facturaValor = apunta_facturaValor.value.trim(); } else { apunta_facturaValor = ''; }
     let clientIdDeveloper = document.getElementById('clientIdDeveloper').value.trim();
     let clientNumber      = document.getElementById('clientNumber').value.trim();
     let clienteRazon      = document.getElementById('autocomplete_input').value.trim();
@@ -337,7 +341,7 @@ function clickCreateInvoice(){
     if(error == true) { return; }
     FACTURA_LINEAS.cliente = {clientIdDeveloper, clientNumber, clienteRazon };
     FACTURA_LINEAS.vehicle = {inputVehicleMatricula, inputVehicleMarca};                                       
-    FACTURA_LINEAS.factura.selectTypeInvoice = selectTypeInvoice;
+    FACTURA_LINEAS.factura = {tipo_factura, name_factura, apunta_factura: apunta_facturaValor};
     FACTURA_LINEAS.observaciones = {obstextareaid}
 
     if(FACTURA_CREATION_CLICKED) { return; }
@@ -377,3 +381,26 @@ async function invoicePutRequest(url, data){
         console.error('There was a problem with the fetch operation:', error);
     }
 }
+
+function cambioTipoFacturaMano(event){
+    let espacioParaSelectTypeFactura = document.getElementById('espacioParaSelectTypeFactura');
+    let tipoFactura = document.getElementById(event.target.id).value.trim();
+    
+    if(tipoFactura == 'R'){
+        let htmlOptions = '';
+        LISTADO_FACTURAS.forEach(factura => {
+            htmlOptions += `<option value="${factura.serie_fact} ${factura.fecha_expedicion}"> ${factura.serie_fact} ${factura.fecha_expedicion} </option>`;
+        });
+        let htmlData = `<div class="mt-1 mb-1 ">
+                            <code>Numero factura a rectificar</code>
+                            <select id="selectFacturaRectificar">
+                                ${htmlOptions}
+                            </select>
+                        </div>`;
+        espacioParaSelectTypeFactura.innerHTML = htmlData;
+    } else {
+        espacioParaSelectTypeFactura.innerHTML = '';
+    }
+   
+}
+

@@ -10,6 +10,7 @@ let pageMainContent = document.getElementById('pageMainContent');
 
 let LISTADO_CLIENTES_FACTURAS  = [];
 let LISTADO_ARTICULOS_FACTURAS = [];
+let LISTADO_FACTURAS           = [];
 let EMPRESA_FACTURAS           = {};
 let LINE_COUNTER               = 0;
 let FACTURA_LINEAS             = {};

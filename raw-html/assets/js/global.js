@@ -75,7 +75,7 @@ let IVAS_LIST = [
 ];
 
 let INVOICES_LIST = [
-    {title: 'Factura Ordinaria', letter: 'O'},
-    {title: 'Factura Rectificativa', letter: 'R'},
-    {title: 'Factura Abono', letter: 'A'},
+    {name_factura: 'FACTURA', title: 'Factura Ordinaria', letter: 'O'},
+    {name_factura: 'FACTURA RECTIFICATIVA', title: 'Factura Rectificativa', letter: 'R'},
+    {name_factura: 'FACTURA ABONO', title: 'Factura Abono', letter: 'A'},
 ];

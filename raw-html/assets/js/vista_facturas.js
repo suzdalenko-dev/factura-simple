@@ -1,5 +1,4 @@
 function showListInvoices(x){
-    console.log(x)
     let currentHtmlEntity = '';
     let tableContent      = '';
         let htmlTotalClientes = 'Total Facturas 0';
@@ -8,7 +7,7 @@ function showListInvoices(x){
             x.res.forEach(i => {
                 tableContent += `<tr>
                                     <td>${i.fecha_expedicion}</td>
-                                    <td><a onclick="showCustomInvoice(${i.id})" href="#showCustomInvoice-${i.serie_fact}">${i.serie_fact}</a></td>
+                                    <td><a onclick="showCustomPDF(${i.id})" href="#showCustomInvoice-${i.serie_fact}">${i.serie_fact}</a></td>
                                     <td>${i.receptor_company_name}</td>
                                     <td>${i.subtotal}</td>
                                     <td>${i.importe_ivas}</td>

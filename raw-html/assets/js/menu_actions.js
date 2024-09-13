@@ -7,7 +7,10 @@ function defaultController(action, entidad, id){
         if(data && data.res){                                       
             crearTablaEntidadPrincipal(data.res, entidad);
             checkCompanyData(data.company);
-            if(entidad.name == 'factura'){ showListInvoices(data); }
+            if(entidad.name == 'factura'){ 
+                LISTADO_FACTURAS = data.res;
+                showListInvoices(data);
+            }
             FACTURA_CREATION_CLICKED = false;
         } else {
             alert('Error al traer datos 3 '+ entidad.name);
