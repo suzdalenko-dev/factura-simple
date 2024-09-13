@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /env.json
+Sitemap: https://factura-simple-on.web.app/sitemap.xml
