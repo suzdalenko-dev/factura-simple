@@ -26,13 +26,9 @@ if(pageUrlD.includes('register')){
         }
     }, 5000);
 } else {
-
     document.title = 'Factura Simple '+globalCurrentDate();
-    document.getElementById('date_time_id').innerHTML = globalCurrentDate()
-
     setInterval(() => {
         document.title = 'Factura Simple '+globalCurrentDate();
-        document.getElementById('date_time_id').innerHTML = globalCurrentDate();
         let metaDescription = document.querySelector('meta[name="description"]');
         if (metaDescription) {
             metaDescription.setAttribute('content', 'Software de gestión de las facturas y clientes para pequeño comercio, taller, autónomo '+globalCurrentDate());
