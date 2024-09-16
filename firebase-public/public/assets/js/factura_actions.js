@@ -340,8 +340,8 @@ function clickCreateInvoice(){
     });
     if(error == true) { return; }
     FACTURA_LINEAS.cliente = {clientIdDeveloper, clientNumber, clienteRazon };
-    FACTURA_LINEAS.vehicle = {inputVehicleMatricula, inputVehicleMarca};                                       
-    FACTURA_LINEAS.factura = {tipo_factura, name_factura, apunta_factura: apunta_facturaValor};
+    FACTURA_LINEAS.vehicle = {inputVehicleMatricula, inputVehicleMarca};                                     
+    FACTURA_LINEAS.factura.tipo_factura = tipo_factura; FACTURA_LINEAS.factura.name_factura = name_factura; FACTURA_LINEAS.factura.apunta_factura = apunta_facturaValor;
     FACTURA_LINEAS.observaciones = {obstextareaid}
 
     if(FACTURA_CREATION_CLICKED) { return; }
