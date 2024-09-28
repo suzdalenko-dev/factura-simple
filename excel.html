@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+</head>
+<body>
+    <button id="export-btn">Export to Excel</button>
+
+    <script>
+        document.getElementById('export-btn').addEventListener('click', function () {
+            // Create a workbook
+            var wb = XLSX.utils.book_new();
+
+            // Create a worksheet
+            var ws_data = [
+                ["S/N", "Name", "Age"],   // Headers
+                [1, "John Doe", 29],
+                [2, "Jane Doe", 25],
+                [3, "Mark Smith", 30],
+                [3, "Mark Smith", 301,2,3,4,5,5,55555,5,5,5,5,5,5,5,,5,],
+                [3, "Mark Smith", "x"]
+            ];
+            var ws = XLSX.utils.aoa_to_sheet(ws_data);
+
+            // Append the worksheet to the workbook
+            XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
+            // Export the Excel file
+            XLSX.writeFile(wb, "example.xlsx");
+        });
+    </script>
+</body>
+</html>

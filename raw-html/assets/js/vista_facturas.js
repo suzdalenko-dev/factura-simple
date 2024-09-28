@@ -7,12 +7,14 @@ function showListInvoices(x){
             x.res.forEach(i => {
                 tableContent += `<tr>
                                     <td>${i.fecha_expedicion}</td>
-                                    <td><a onclick="showCustomPDF(${i.id})" href="#showCustomInvoice-${i.serie_fact}">${i.serie_fact}</a></td>
+                                    <td><a onclick="showCustomPDF(${i.id}, 0)" href="#showCustomInvoice-${i.serie_fact}">${i.serie_fact}</a></td>
                                     <td>${i.receptor_company_name}</td>
                                     <td>${i.subtotal}</td>
                                     <td>${i.importe_ivas}</td>
                                     <td>${i.total}</td>
-                                    <td><a onclick="showCustomPDF(${i.id})" href="#showCustomPDF-${i.serie_fact}"><i class="fa-solid fa-file-pdf"></i></a></td>
+                                    <td><a onclick="showCustomPDF(${i.id}, 0)" href="#showCustomPDF-${i.serie_fact}"><i class="fa-solid fa-file-pdf"></i></a>
+                                        <a onclick="showCustomPDF(${i.id}, 'sent_email_action')" href="#showCustomPDF-${i.serie_fact}"><i class="fa-solid fa fa-envelope"></i></a>
+                                    </td>
                                 </tr>`;
             });
         }
@@ -38,8 +40,11 @@ function showListInvoices(x){
     pageMainContent.innerHTML = currentHtmlEntity;
 }
 
-function showCustomPDF(factura_id){
-    postRequest('pdf/create/'+factura_id, new FormData()).then(r => {
+function showCustomPDF(factura_id, currentAction){
+    let action = 'create';
+    if(currentAction == 'sent_email_action'){ action = 'create_and_sent'; }
+
+    postRequest(`pdf/${action}/${factura_id}`, new FormData()).then(r => {
         console.log(r.url)
         window.open(HTTP_URL+r.url, '_blank')
     });

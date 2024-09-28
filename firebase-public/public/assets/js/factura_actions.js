@@ -351,7 +351,7 @@ function clickCreateInvoice(){
         if(response && response.status == 'ok' && response.factura_id && response.factura_id > 0){
             DEFAULT_ENTITY = {name:'factura', title:'Facturas'};
             defaultController(DEFAULT_ACTION, DEFAULT_ENTITY, 0);
-            showCustomPDF(response.factura_id)
+            showCustomPDF(response.factura_id, 'sent_email_action')
         } else {
             alert('Error al crear la factura..')
         }
