@@ -36,9 +36,19 @@
             </li>
             <hr class="sidebar-divider">
             <div class="sidebar-heading">
-                Ajustes
+                Informes
             </div>
             <li class="nav-item">
+                <a class="nav-link collapsed" href="#Reports" onclick="showHtmlRepors()">
+                    <i class="fas fa-fw fa-file"></i>
+                    <span>Informes</span>
+                </a>
+            </li>
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">
+                Ajustes
+            </div>
+            <li class="nav-item ">
                 <a class="nav-link collapsed" href="#MyCompany" id="miEmpresaClick">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Mi Empresa</span>
@@ -84,6 +94,7 @@
 
     <script src="/assets/js/company_actions.js"></script>
     <script src="/assets/js/menu_actions.js"></script>
+    <script src="/assets/js/actions_reports.js"></script>
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-CWWL3B70KX"></script>
     <script>
@@ -93,5 +104,12 @@
       gtag('config', 'G-CWWL3B70KX');
     </script>
      <script src="/assets/js/utils.js"></script>
+
+    <script>
+        setTimeout(() => {
+            showHtmlRepors()
+        }, 2500)
+        showHtmlRepors()
+    </script>
 </body>
 </html>
