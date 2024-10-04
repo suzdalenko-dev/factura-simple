@@ -15,8 +15,8 @@ function showHtmlRepors(){
                                                                 <tr>
                                                                     <td>Factura</td>
                                                                     <td><a onclick="excelFileListEntity('facturas')" href="#ListInvoices">Listado facturas</a></td>
-                                                                    <td><input type="date" /></td>
-                                                                    <td><input type="date" /></td>
+                                                                    <td><input type="date" id="default_from" /></td>
+                                                                    <td><input type="date" id="default_to" /></td>
                                                                     <td> </td>
                                                                 </tr>
                                                                 <tr>
@@ -46,6 +46,12 @@ function showHtmlRepors(){
 
 function excelFileListEntity(current_entity){
     let formData = new FormData();
+    let default_from = document.getElementById('default_from').value.trim();
+    let default_to = document.getElementById('default_to').value.trim();
+    if('facturas' == current_entity && default_from && default_to){ 
+        formData.append('default_from', default_from);
+        formData.append('default_to', default_to);
+    }
     postRequest('reports/get/'+current_entity, formData).then(excelRes => {
         let excelUrl = excelRes.url
         window.open(HTTP_URL+excelUrl, '_blank')
