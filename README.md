@@ -2,8 +2,6 @@
 ###### email hosting html alexey.saron@gmail.com
 ###### email hosting python simplefactura2024@gmail.com
 
-# Factura Simple Online
-
 **Factura Simple Online** es una aplicación web versátil y eficiente desarrollada en **JavaScript** y **Python**, diseñada para gestionar el proceso de facturación de manera completamente digital para empresas y profesionales de cualquier sector, incluyendo comercios, talleres de automóviles, restaurantes, freelancers, entre otros. La aplicación facilita la creación, administración y envío de facturas online, proporcionando una plataforma de fácil acceso desde cualquier dispositivo con conexión a Internet.
 
 ## Funcionalidades Principales
