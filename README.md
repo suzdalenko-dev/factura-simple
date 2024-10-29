@@ -66,7 +66,7 @@ Asegúrate de tener instalado:
 1. Clona el repositorio:
 
     ```bash
-    git clone https://github.com/suzdalenko-dev/factura-simple.git
+    git clone https://github.com/suzdalenko-dev/factura-simple-online.git
     cd factura-simple-online
     ```
 
